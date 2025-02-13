@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Seif Soliman Mohammed - Software Engineer Profile</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+</head>
+
+<body>
+
+    <!-- The Background -->
+    <div class="blob-container">
+        <div class="blob blob1"></div>
+        <div class="blob blob2"></div>
+        <div class="blob blob3"></div>
+        <div class="blob blob4"></div>
+    </div>
+
+    <!-- Grid Overlay -->
+    <div class="grid-overlay"></div>
+
+    <!-- For a loading screen -->
+    <div class="loading-screen">
+        <div class="glow-effect"></div>
+        <div class="loader-container">
+            <div class="spinner"></div>
+            <div class="loading-text-container">
+                <div class="text-glow"></div>
+                <span class="loading-text">Loading...</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Welcome Screen -->
+    <div id="welcome-screen">
+        <h1>Welcome to My</h1>
+        <h2>Portfolio websites</h2>
+        <span class="myweblink"></span>
+        <span class="cursor">|</span>
+    </div>
+    <div id="main-content" class="main1" style="display: none;">
+        <!-- Navbar -->
+        <nav id="navbar">
+            <div class="container">
+                <a href="#home" class="logo">21</a>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#portfolio">Portfolio</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Home Section -->
+        <section id="home" class="section">
+            <div class="container">
+                <div class="home-content">
+                    <div class="home-text">
+                        <h1>Full Stack</h1>
+                        <h1>Developer</h1>
+                        <h2>
+                            <div class="typing-container">
+                                <span class="static-text">I CREATE </span>
+                                <span class="dynamic-text"></span>
+                                <span class="cursor">|</span>
+                            </div>
+                        </h2>
+                        <p>Transforming ideas into dynamic, high-performance digital solutions that inspire and engage.
+                        </p>
+                        <div class="home-buttons">
+                            <a href="#portfolio" class="btn">View My Work</a>
+                            <a href="#contact" class="btn">Contact</a>
+                        </div>
+                    </div>
+                    <img src="img/TechStack/output-onlinegiftools.gif" alt="Main Image" class="main-img" />
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="section">
+            <div class="container">
+                <h2>About Me</h2>
+                <div class="about-content">
+                    <!-- Profile Image with Hover Effect -->
+                    <div class="profile-img-container">
+                        <img src="img/Seif1.jpg" alt="Seif Soliman" class="profile-img" />
+                    </div>
+                    <!-- Bio -->
+                    <div class="bio">
+                        <p>
+                            <span class="hi-im">Hi, I'm Seif Soliman Mohammed</span>, Computer Networks and
+                            Communications
+                            Engineering Student Driven by a passion for software engineering with a keen focus on
+                            full-stack
+                            development. I specialize in crafting intuitive and engaging digital solutions, always
+                            striving
+                            for innovation and excellence in every project I undertake.
+                        </p>
+                        <div class="stats">
+                            <div class="stat" data-target="#projects">
+                                <i class="fas fa-code"></i>
+                                <span>4 Projects</span>
+                            </div>
+                            <div class="stat" data-target="#certificates">
+                                <i class="fas fa-award"></i>
+                                <span>5 Certificates</span>
+                            </div>
+                            <div class="stat" data-target="#portfolio">
+                                <i class="fas fa-globe"></i>
+                                <span>1+ Years Experience</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Portfolio Section -->
+        <section id="portfolio" class="section">
+            <div class="container">
+                <h2>Portfolio</h2>
+                <!-- Tabs -->
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="projects">Projects</button>
+                    <button class="tab-btn" data-tab="certificates">Certificates</button>
+                    <button class="tab-btn" data-tab="tech-stack">Tech Stack</button>
+                </div>
+
+                <!-- Projects Tab -->
+                <div id="projects" class="tab-content active">
+                    <div class="projects-grid">
+                        <!-- Project cards -->
+                    </div>
+                    <button class="btn">See More</button>
+                </div>
+
+                <!-- Certificates Tab -->
+                <div id="certificates" class="tab-content">
+                    <div class="certificates-grid">
+                        <!-- Certificate cards -->
+                    </div>
+                </div>
+
+                <!-- Tech Stack Tab -->
+                <div id="tech-stack" class="tab-content">
+                    <div class="tech-stack-grid">
+                        <!-- Tech stack icons  -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Project Modal -->
+        <div id="project-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <img src="" alt="Project Image" class="modal-image" />
+                <h2 class="modal-title"></h2>
+                <p class="modal-description"></p>
+                <div class="modal-tech-stack">
+                    <!-- Tech stack icons -->
+                </div>
+                <div class="modal-links">
+                    <a href="#" class="btn" target="_blank">Live Demo</a>
+                    <a href="#" class="btn" target="_blank">GitHub</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section">
+            <div class="container">
+                <h2>Contact Me</h2>
+                <form id="contact-form" action="https://formsubmit.co/el/xanufe" method="POST">
+                    <input type="text" name="name" placeholder="Your Name" required />
+                    <input type="email" name="email" placeholder="Your Email" required />
+                    <textarea name="message" placeholder="Your Message" required></textarea>
+                    <button type="submit" class="btn">Send Message</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/-seif-soliman/"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/byseif21"><i class="fab fa-github"></i></a>
+                <a href="https://www.instagram.com/byseif21/profilecard/?igsh=MWducWUxOWVhbzBtbw=="><i
+                        class="fab fa-instagram"></i></a>
+            </div>
+            <div class="container">
+                <p>&copy; 2025 Seif Soliman Mohammed. All Rights Reserved.</p>
+            </div>
+    </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
