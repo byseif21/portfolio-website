@@ -611,6 +611,30 @@ html {
     }
 }
 
+.cv-btn {
+    background: linear-gradient(45deg, #22d3ee, #0ea5e9);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    border: none;
+    width: 100%;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cv-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(34, 211, 238, 0.3);
+}
+
+@media screen and (max-width: 768px) {
+    .cv-btn {
+        width: 50%;
+        min-width: fit-content;
+    }
+}
+
 /* Portfolio Section */
 #portfolio .projects-grid {
     display: grid;
