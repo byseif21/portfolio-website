@@ -108,7 +108,7 @@ function initializePage() {
             description: "This is my personal portfolio website, showcasing my skills, projects, and experience as a Full Stack Developer.",
             image: "img/projects/project2.png",
             link: "#",
-            github: "https://github.com/project2",
+            github: "https://github.com/byseif21/portfolio-website",
             techStack: ["HTML", "CSS", "JavaScript"],
         },
 
@@ -127,7 +127,7 @@ function initializePage() {
             title: "Movie Rating Website Platform",
             description: "An advanced, full-featured movie rating and review platform built with .NET MVC.",
             image: "img/projects/project4.jpg",
-            link: "#",
+            link: "javascript:void(0);",
             github: "https://github.com/byseif21/eRmovie",
             techStack: ["C#", "ASP.NET MVC", "Bootstrap", "Entity Framework", "SQL Server"]
         }
