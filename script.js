@@ -375,3 +375,49 @@ tabButtons.forEach((button) => {
         document.getElementById(tabId).classList.add("active");
     });
 });
+
+// Contact form functionality
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("contact-form");
+    const formStatus = document.getElementById("form-status");
+
+    async function handleSubmit(event) {
+        event.preventDefault(); // Prevent page reload
+
+        let formData = new FormData(form);
+
+        try {
+            let response = await fetch("/", {
+                method: "POST",
+                body: formData,
+            });
+
+            if (response.ok) {
+                typeEffect("Thank you! Your message has been sent.", "success");
+                form.reset();
+            } else {
+                typeEffect("Oops! Something went wrong. Please try again.", "error");
+            }
+        } catch (error) {
+            typeEffect("Network error. Please check your connection.", "error");
+        }
+    }
+
+    form.addEventListener("submit", handleSubmit);
+
+    function typeEffect(message, statusClass) {
+        formStatus.textContent = "";
+        formStatus.className = statusClass;
+
+        let charIndex = 0;
+        function type() {
+            if (charIndex < message.length) {
+                formStatus.textContent += message.charAt(charIndex);
+                charIndex++;
+                setTimeout(type, 80); // Typing speed
+            }
+        }
+        type();
+    }
+});
+

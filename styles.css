@@ -950,6 +950,22 @@ html {
     box-shadow: 0 4px 12px rgba(34, 211, 238, 0.3);
 }
 
+/* Messages style */
+#form-status {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.success {
+    color: hsl(180, 100%, 70%);
+    text-shadow: 0 0 10px hsla(180, 100%, 70%, 0.5);
+}
+
+.error {
+    color: #854ebd;
+    font-weight: bold;
+}
+
 /* Footer */
 footer {
     /*background: rgba(3, 0, 20, 0.8);
