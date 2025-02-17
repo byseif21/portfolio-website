@@ -180,12 +180,16 @@
         <section id="contact" class="section">
             <div class="container">
                 <h2>Contact Me</h2>
-                <form id="contact-form" name="contact" method="POST" data-netlify="true" data-netlify-recaptcha="true">
+                <form id="contact-form" name="contact" method="POST" netlify netlify-honeypot="bot-field">
                     <input type="hidden" name="form-name" value="contact">
+                    <!-- Honeypot Field (Hidden) -->
+                    <div style="display: none;">
+                        <label>Don’t fill this out if you’re human: <input name="bot-field"></label>
+                    </div>
                     <input type="text" name="name" placeholder="Your Name" required />
                     <input type="email" name="email" placeholder="Your Email" required />
                     <textarea name="message" placeholder="Your Message" required></textarea>
-                    <div data-netlify-recaptcha="true"></div>
+
                     <button type="submit" class="btn">Send Message</button>
                 </form>
                 <p id="form-status" class="status-message"></p>
