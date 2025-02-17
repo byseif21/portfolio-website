@@ -18,8 +18,8 @@ This is my personal portfolio website, designed to highlight my work as a **Full
 ```
 /portfolio-website
 │── /img                # Images and assets
-│── /css                # Stylesheets
-│── /js                 # JavaScript files
+│── styles.css          # Stylesheet
+│── script.js           # JavaScript file
 │── index.html          # Main homepage
 │── README.md           # Project documentation
 ```
