@@ -56,7 +56,7 @@ Your support means a lot, and I'd love to see how you customize it! 😊
 - Hosted on **GitHub Pages**  
 
 ### **📩 Contact**  
-💻 Visit my portfolio: [seifsoliman.com](https://byseif21.github.io/portfolio-website/)  
+💻 Visit my portfolio: [seifsoliman.com](https://seifsoliman.netlify.app/)  
 📍 Contact me: [LinkedIn](https://www.linkedin.com/in/-seif-soliman/)  
 👨‍💻 GitHub: [@byseif21](https://github.com/byseif21)  
  
