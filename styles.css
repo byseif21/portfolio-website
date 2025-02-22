@@ -845,6 +845,7 @@ html {
 }
 
 .modal.open {
+    z-index: inherit;
     opacity: 1;
     visibility: visible;
 }
