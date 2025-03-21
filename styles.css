@@ -464,6 +464,7 @@ html {
 /* Main Image */
 #home .main-img {
     max-width: 500px;
+    min-width: 300px;
     width: 100%;
     height: auto;
     display: block;
@@ -653,10 +654,9 @@ html {
     background: rgba(255, 255, 255, 0.05);
     border-radius: 0.5rem;
     overflow: hidden;
-    opacity: 1;
-    transform: translateY(0);
-    transition: opacity 0.5s ease, transform 0.5s ease;
-    /* transition: transform 0.3s ease, box-shadow 0.3s ease; */
+    border: 1px solid rgba(34, 211, 238, 0.2);
+    transition: transform 0.5s ease, box-shadow 0.5s ease, opacity 0.3s ease;
+    cursor: pointer;
 }
 
 .project-card.hidden {
@@ -671,11 +671,18 @@ html {
 
 .project-card img {
     width: 100%;
-    height: 200px;
+    min-width: 385px;
+    height: 250px;
     object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.project-card:hover img {
+    transform: scale(1.05);
 }
 
 .project-card h3 {
+    margin: 0;
     font-size: 1.25rem;
     font-weight: bold;
     color: #e2e8f0;
@@ -714,14 +721,65 @@ html {
 
 .tab-btn:hover {
     background: rgba(34, 211, 238, 0.1);
+    transform: scale(1.05);
+}
+
+.tab-container {
+    position: relative;
+    overflow: hidden;
+    min-height: 400px;
 }
 
 .tab-content {
-    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: transform 0.5s ease-in-out, opacity 0.3s ease-in-out;
+    pointer-events: none;
 }
 
 .tab-content.active {
-    display: block;
+    position: relative;
+    opacity: 1 !important;
+    transform: translateX(0) !important;
+    z-index: 2;
+    pointer-events: auto;
+}
+
+/* Exit animations */
+.tab-content.exit-left {
+    transform: translateX(-100%) !important;
+    opacity: 0 !important;
+    transition: transform 0.5s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.tab-content.exit-right {
+    transform: translateX(100%) !important;
+    opacity: 0 !important;
+    transition: transform 0.5s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+/* Enter animations */
+.tab-content.enter-left {
+    transform: translateX(-100%);
+    opacity: 0;
+    transition: transform 0.5s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.tab-content.enter-right {
+    transform: translateX(100%);
+    opacity: 0;
+    transition: transform 0.5s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+/* Ensure transitions happen */
+.tab-content.enter-left.active,
+.tab-content.enter-right.active {
+    transform: translateX(0) !important;
+    opacity: 1 !important;
 }
 
 /* See More Button */
@@ -841,22 +899,25 @@ html {
     align-items: center;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
 }
 
 .modal.open {
     z-index: inherit;
     opacity: 1;
     visibility: visible;
+    transition: opacity 0.3s ease;
 }
 
 .modal-content {
     background: #030014;
     padding: 2rem;
     border-radius: 0.5rem;
-    max-width: 600px;
-    width: 100%;
+    max-width: 700px;
+    width: 90%;
     position: relative;
+    border: 1px solid #22d3ee;
+    box-shadow: 0 0 20px rgba(34, 211, 238, 0.3);
 }
 
 .close-modal {
@@ -866,6 +927,11 @@ html {
     font-size: 1.5rem;
     color: #e2e8f0;
     cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-modal:hover {
+    color: #22d3ee;
 }
 
 .modal-content img {
@@ -909,7 +975,76 @@ html {
 }
 
 .modal-tech-stack {
-    display: table;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.modal-tech-stack span {
+    background: rgba(34, 211, 238, 0.1);
+    padding: 0.3rem 0.8rem;
+    border-radius: 0.3rem;
+    color: #22d3ee;
+    font-size: 0.875rem;
+}
+
+@media (max-width: 768px) {
+    .modal-content {
+        padding: 1.5rem;
+    }
+
+    .modal-content img {
+        max-height: 40vh;
+    }
+
+    .modal-links {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .modal-links a {
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .modal-content {
+        padding: 1rem;
+    }
+
+    .modal-content img {
+        max-height: 30vh;
+    }
+
+    .modal-content h2 {
+        margin: 0.75rem 0;
+    }
+
+    .modal-content p {
+        margin-bottom: 0.5rem;
+    }
+
+    .modal-tech-stack {
+        gap: 0.3rem;
+    }
+
+    .close-modal {
+        font-size: 1.25rem;
+        top: 0.75rem;
+        right: 0.75rem;
+    }
+
+    .modal-links a {
+        display: contents;
+        font-size: 10px;
+        width: 50%;
+        max-width: 300px;
+        margin: 0 auto;
+    }
 }
 
 /* Contact Section */
@@ -978,4 +1113,112 @@ footer {
 footer p {
     font-size: 0.875rem;
     color: #94a3b8;
+}
+
+.social-links a {
+    color: #22d3ee;
+    margin: 0 1rem;
+    font-size: 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+.social-links a:hover {
+    /*transform: scale(1.2);*/
+    color: #0ea5e9;
+}
+
+
+/* animations */
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes pulse {
+    from {
+        transform: scale(1);
+        opacity: 0.2;
+    }
+
+    to {
+        transform: scale(1.2);
+        opacity: 0.4;
+    }
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+
+    70% {
+        opacity: 0.3;
+    }
+
+    100% {
+        opacity: 0;
+        display: none;
+    }
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}
+
+/* responsive desgin */
+@media (max-width: 768px) {
+    #home .home-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    #home .main-img {
+        margin: -30px auto;
+        order: -1;
+    }
+
+    #home .home-buttons {
+        justify-content: center;
+        display: inline-grid;
+    }
+
+    #home .btn {
+        min-width: min-content;
+    }
+
+    #home .home-text {
+        margin-top: -14px;
+    }
+
+    #about .about-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    #about .profile-img-container {
+        margin: 0 auto 1.5rem;
+    }
+
+    #about .bio {
+        text-align: center;
+    }
+
+    #about .stats {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .cv-btn {
+        width: 50%;
+        min-width: fit-content;
+    }
+}
+
+@media (max-width: 504px) {
+    #portfolio .projects-grid {
+        grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
+    }
 }

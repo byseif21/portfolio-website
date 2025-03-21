@@ -327,25 +327,12 @@ function renderTechStack() {
 // Function to open modal with project details
 function openModal(project) {
     const modal = document.getElementById("project-modal");
-    const modalImage = modal.querySelector(".modal-image");
-    const modalTitle = modal.querySelector(".modal-title");
-    const modalDescription = modal.querySelector(".modal-description");
-    const techStack = modal.querySelector(".modal-tech-stack");
-    const modalLinks = modal.querySelector(".modal-links");
-
-    modalImage.src = project.image;
-    modalTitle.textContent = project.title;
-    modalDescription.textContent = project.description;
-
-    techStack.innerHTML = "";
-    project.techStack.forEach((tech) => {
-        const techIcon = document.createElement("div");
-        techIcon.classList.add("tech-icon");
-        techIcon.innerHTML = `<i class="fas fa-code"></i> ${tech}`;
-        techStack.appendChild(techIcon);
-    });
-
-    modalLinks.innerHTML = `
+    modal.querySelector(".modal-image").src = project.image;
+    modal.querySelector(".modal-title").textContent = project.title;
+    modal.querySelector(".modal-description").textContent = project.description;
+    modal.querySelector(".modal-tech-stack").innerHTML = project.techStack.map(tech => `<span>${tech}</span>`).join("");
+    const links = modal.querySelector(".modal-links");
+    links.innerHTML = `
         <a href="${project.link}" class="btn" target="_blank">Live Demo</a>
         <a href="${project.github}" class="btn" target="_blank">GitHub</a>
     `;
@@ -364,15 +351,73 @@ window.addEventListener("click", (event) => {
 // Tabs functionality
 const tabButtons = document.querySelectorAll(".tab-btn");
 const tabContents = document.querySelectorAll(".tab-content");
+let currentTabIndex = 0;
 
-tabButtons.forEach((button) => {
+tabButtons.forEach((button, index) => {
     button.addEventListener("click", () => {
-        tabButtons.forEach((btn) => btn.classList.remove("active"));
-        tabContents.forEach((content) => content.classList.remove("active"));
+        const newTabIndex = index;
+        const newTabId = button.getAttribute("data-tab");
+        const newTab = document.getElementById(newTabId);
 
+        if (newTab.classList.contains("active")) return;
+
+        console.log(`From ${currentTabIndex} to ${newTabIndex}`);
+
+        // Update button states
+        tabButtons.forEach((btn) => btn.classList.remove("active"));
         button.classList.add("active");
-        const tabId = button.getAttribute("data-tab");
-        document.getElementById(tabId).classList.add("active");
+
+        const currentTab = document.querySelector(".tab-content.active");
+        if (currentTab) {
+            let exitDirection;
+            let enterDirection;
+
+            if (newTabIndex > currentTabIndex) {
+                // right IN ORDER
+                exitDirection = "left";
+                enterDirection = "right";
+            } else {
+                //  left IN ORDER
+                exitDirection = "right";
+                enterDirection = "left";
+            }
+
+            console.log(`Exit: ${exitDirection}, Enter: ${enterDirection}`);
+
+            // Remove any existing transition classes
+            tabContents.forEach((tab) => {
+                if (tab !== currentTab && tab !== newTab) {
+                    tab.classList.remove("active", "exit-left", "exit-right", "enter-left", "enter-right");
+                }
+            });
+
+            // Animate out current tab
+            currentTab.classList.remove("active");
+            currentTab.classList.add(`exit-${exitDirection}`);
+
+            // Set up the new tab's initial position based on where it's coming from
+            newTab.classList.remove("exit-left", "exit-right", "enter-left", "enter-right");
+            newTab.style.transform = enterDirection === "right" ? "translateX(100%)" : "translateX(-100%)";
+            newTab.style.opacity = "0";
+
+            // Animate
+            setTimeout(() => {
+                newTab.classList.add(`enter-${enterDirection}`);
+                newTab.classList.add("active");
+            }, 50);
+
+            // Clean up 
+            setTimeout(() => {
+                newTab.classList.remove(`enter-${enterDirection}`);
+                currentTab.classList.remove(`exit-${exitDirection}`);
+                currentTab.style.transform = exitDirection === "left" ? "translateX(-100%)" : "translateX(100%)";
+                currentTab.style.opacity = "0";
+            }, 500);
+        } else {
+            newTab.classList.add("active");
+        }
+
+        currentTabIndex = newTabIndex;
     });
 });
 
