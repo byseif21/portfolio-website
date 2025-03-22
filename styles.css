@@ -639,8 +639,10 @@ html {
 /* Portfolio Section */
 #portfolio .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr));
     gap: 2rem;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 @media (max-width: 504px) {
@@ -667,14 +669,13 @@ html {
 }
 
 .project-card:hover {
-    transform: scale(1.05);
+    transform: scale(1.03);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
 }
 
 .project-card img {
     width: 100%;
     min-width: unset;
-    height: 250px;
     object-fit: cover;
     transition: transform 0.3s ease;
 }
@@ -744,13 +745,20 @@ html {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
+    /*width: 100%;*/
     max-width: 100%;
     opacity: 0;
     transform: translateX(100%);
     transition: transform 0.5s ease-in-out, opacity 0.3s ease-in-out;
     pointer-events: none;
-    box-sizing: border-box;
+    padding: 0 1rem;
+}
+
+.tab-content-wrapper {
+    padding: 0 1rem;
+    margin: 0 -1rem;
+    width: calc(100% + 2rem);
+    overflow: visible;
 }
 
 .tab-content.active {
@@ -759,6 +767,7 @@ html {
     transform: translateX(0) !important;
     z-index: 2;
     pointer-events: auto;
+    overflow: hidden;
 }
 
 /* Exit animations */
@@ -814,7 +823,7 @@ html {
 /* Certificates Grid */
 .certificates-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
     gap: 1.5rem;
 }
 
@@ -827,7 +836,7 @@ html {
 }
 
 .certificate-card:hover {
-    transform: scale(1.05);
+    transform: scale(1.02);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
 }
 
@@ -1003,14 +1012,23 @@ html {
 }
 
 @media (max-width: 480px) {
-    .tabs {
-        flex-wrap: wrap;
-        /* Allow tabs to wrap on very small screens */
-    }
 
     .project-card {
         max-width: 100%;
-        width: 100%;
+        min-width: unset;
+        width: 90%;
+    }
+
+    .certificate-card {
+        max-width: 100%;
+        min-width: unset;
+        width: 90%;
+    }
+
+    .tech-stack-item {
+        max-width: 100%;
+        min-width: unset;
+        width: 65%;
     }
 }
 
