@@ -199,12 +199,12 @@ function initializePage() {
     const words = [
         "ROBUST .NET APPLICATIONS.",
         "SCALABLE CLOUD SOLUTIONS.",
-        "SECURE BACKEND ARCHITECTURES.",
-        "DYNAMIC MVC WEB PLATFORMS.",
-        "INTERACTIVE FRONTEND EXPERIENCES.",
-        "PERFORMANCE-OPTIMIZED DATABASES.",
-        "RESPONSIVE E-COMMERCE SYSTEMS.",
-        "INNOVATIVE ENTERPRISE SOFTWARE."
+        "FORTIFIED BACKENDS.",
+        "ADVANCED MVC PLATFORMS.",
+        "ENGAGING INTERFACES.",
+        "HIGH-PERFORMANCE DATABASES.",
+        "SEAMLESS E-COMMERCE.",
+        "TRANSFORMATIVE ENTERPRISE."
     ];
 
     const dynamicText = document.querySelector(".dynamic-text");
