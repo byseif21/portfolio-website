@@ -27,6 +27,19 @@ body {
         justify-content: flex-end;
     }
 
+    .static-text {
+        font-size: 14px;
+    }
+
+    .dynamic-text {
+        font-size: 14px;
+    }
+
+    #home .home-text p {
+        font-size: 12px !important;
+    }
+
+
 }
 
 @media (max-width: 768px) {
@@ -471,12 +484,8 @@ html {
         justify-content: center;
         text-align: center;
     }
-    .static-text {
-        font-size: 14px;
-    }
 
     .dynamic-text {
-        font-size: 14px;
         margin-left: 4px;
         border-right: none;
     }
@@ -1077,7 +1086,7 @@ html {
     .project-card {
         max-width: 100%;
         min-width: unset;
-        width: 80%;
+        width: 85%;
         max-height: fit-content;
     }
 
