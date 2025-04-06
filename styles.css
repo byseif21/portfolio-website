@@ -742,6 +742,7 @@ html {
 
 .project-card img {
     width: 100%;
+    height: 300px;
     min-width: unset;
     object-fit: cover;
     transition: transform 0.3s ease;
@@ -1335,6 +1336,10 @@ footer p {
     .cv-btn {
         width: 50%;
         min-width: fit-content;
+    }
+
+    .project-card img {
+        height: unset;
     }
 }
 

@@ -95,10 +95,10 @@ function initializePage() {
 
         {
             id: 1,
-            title: "Clothing Frontend Project",
+            title: "Onklo - Clothing Frontend Project",
             description: "A custom, responsive front-end e-commerce template designed and built from scratch.",
             image: "img/projects/project1.png",
-            link: "https://byseif21.github.io/OnKloFrontDD/index.html#",
+            link: "https://byseif21.github.io/OnKloFrontDD",
             github: "https://github.com/byseif21/OnKloFrontDD",
             techStack: ["HTML", "CSS", "JavaScript"],
         },
@@ -114,16 +114,36 @@ function initializePage() {
 
         {
             id: 3,
+            title: "StyleZa - Frontend Full Template",
+            description: "A modern, responsive UI template for an online clothing store, featuring a sleek and user-friendly design. It offers a smooth user experience across all devices, making it ideal for stores that want to showcase their products professionally.",
+            image: "img/projects/Styleza.png",
+            link: "https://byseif21.github.io/StylezaFD/",
+            github: "https://github.com/byseif21/StylezaFD",
+            techStack: ["HTML5", "CSS", "JavaScript"]
+        },
+
+        {
+            id: 4,
+            title: "Mr. Deli - Restaurant Website",
+            description: "A modern and responsive restaurant website designed for Mr. Deli, featuring an elegant UI, interactive menu, and seamless user experience across devices.",
+            image: "img/projects/mrdeli.png",
+            link: "https://www.mr-deli.com",
+            github: "",
+            techStack: ["HTML5", "CSS", "JavaScript"]
+        },
+
+        {
+            id: 5,
             title: "OnKlo - Full-Stack E-Commerce Platform",
             description: "The full MVC version of the Clothing Frontend Project, now a dynamic and scalable e-commerce platform.",
             image: "img/projects/project1.png",
-            link: "https://byseif21.github.io/OnKloFrontDD/index.html#",
+            link: "https://byseif21.github.io/OnKloFrontDD",
             github: "https://github.com/byseif21/OnKlo",
             techStack: ["C#", "ASP.NET MVC", "HTML5", "CSS", "JavaScript", "Entity Framework", "SQL Server"]
         },
 
         {
-            id: 4,
+            id: 6,
             title: "Movie Rating Website Platform",
             description: "An advanced, full-featured movie rating and review platform built with .NET MVC.",
             image: "img/projects/project4.jpg",
@@ -306,8 +326,10 @@ function renderTechStack() {
         { icon: "img/TechStack/html.svg", language: "HTML" },
         { icon: "img/TechStack/css.svg", language: "CSS" },
         { icon: "img/TechStack/javascript.svg", language: "JavaScript" },
+        { icon: "img/TechStack/typescript.svg", language: "TypeScript" },
         { icon: "img/TechStack/Csharp.svg", language: "C#" },
         { icon: "img/TechStack/Tsql.svg", language: "T-SQL" },
+        { icon: "img/TechStack/nodejs.svg", language: "Node.js" },
         { icon: "img/TechStack/Dotnet.svg", language: ".NET Core" },
         { icon: "img/TechStack/python.svg", language: "Python" },
         { icon: "img/TechStack/C+.svg", language: "C++" },
