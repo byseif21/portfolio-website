@@ -305,6 +305,21 @@ html {
     color: transparent;
 }
 
+@media screen and (max-width: 768px) {
+    #welcome-screen h1 {
+        font-size: 2.5rem;
+    }
+
+    #welcome-screen h2 {
+        font-size: 2.5rem;
+    }
+
+    #welcome-screen span {
+        font-size: 1.5rem;
+    }
+
+}
+
 @keyframes fadeOut {
     0% {
         opacity: 1;
