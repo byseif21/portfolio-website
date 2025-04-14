@@ -328,11 +328,15 @@ function renderTechStack() {
         { icon: "img/TechStack/javascript.svg", language: "JavaScript" },
         { icon: "img/TechStack/typescript.svg", language: "TypeScript" },
         { icon: "img/TechStack/Csharp.svg", language: "C#" },
-        { icon: "img/TechStack/Tsql.svg", language: "T-SQL" },
-        { icon: "img/TechStack/nodejs.svg", language: "Node.js" },
-        { icon: "img/TechStack/Dotnet.svg", language: ".NET Core" },
+        { icon: "img/TechStack/t-sql-removebg.png", language: "T-Sql" },
         { icon: "img/TechStack/python.svg", language: "Python" },
         { icon: "img/TechStack/C+.svg", language: "C++" },
+        { icon: "img/TechStack/nodejs.svg", language: "Node.js" },
+        { icon: "img/TechStack/Dotnet.svg", language: ".NET Core" },
+        { icon: "img/TechStack/bootstrap.svg", language: "Bootstrap" },
+        { icon: "img/TechStack/mongodb.svg", language: "MongoDB" },
+        { icon: "img/TechStack/sql-server.svg", language: "Sql Server" },
+        { icon: "img/TechStack/firebase.svg", language: "Firebase" },
     ];
 
     techStacks.forEach((tech) => {

@@ -599,7 +599,7 @@ html {
     border: 4px solid #22d3ee;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     margin-bottom: 1.5rem;
-    margin-left: 10px;
+    margin-left: 45px;
 }
 
 #about .profile-img-container:hover {
@@ -620,8 +620,16 @@ html {
 
 /* Bio Section */
 #about .bio {
+    position: relative;
+    left: 70px;
     max-width: 600px;
     text-align: start;
+}
+@media screen and (max-width: 1300px) {
+    #about .bio {
+        position: static;
+    }
+    
 }
 
 #about .bio p {
@@ -800,6 +808,13 @@ html {
     transition: background 0.3s ease, color 0.3s ease;
 }
 
+@media screen and (max-width: 468px) {
+    .tab-btn {
+        font-size: small;
+    }
+    
+}
+
 .tab-btn.active {
     background: linear-gradient(45deg, #22d3ee, #0ea5e9);
     color: white;
@@ -954,8 +969,13 @@ html {
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     gap: 1.5rem;
     padding: 1rem;
-}
-
+  }
+  
+  @media screen and (min-width: 921px) {
+    .tech-stack-grid {
+      grid-template-columns: repeat(5, minmax(0px, 1fr));
+    }
+  }
 .tech-stack-item {
     display: flex;
     flex-direction: column;
