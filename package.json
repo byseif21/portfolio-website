@@ -1,0 +1,20 @@
+{
+  "name": "my-final-portfolio-website",
+  "version": "1.0.0",
+  "description": " **A personal portfolio showcasing my projects, skills, and achievements.**",
+  "main": "script.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "vite": "^7.1.3"
+  },
+  "dependencies": {
+    "@fontsource/poppins": "^5.2.6"
+  }
+}
