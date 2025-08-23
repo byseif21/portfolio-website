@@ -1,0 +1,30 @@
+[
+    {
+        "id": 1,
+        "title": "THE WEB DEVELOPMENT CHALLENGER TRACK",
+        "description": "Certified in Advanced WEB DEVELOPMENT by Udacity.",
+        "image": "img/certificates/Udacity Nanodegree Graduation Certificate.png",
+        "link": "https://www.udacity.com/certificate/e/51436012-4aec-11ed-bba3-13d109eae405"
+    },
+    {
+        "id": 2,
+        "title": "HTML & CSS",
+        "description": "Certified in completing learning HTML & CSS by ITI.",
+        "image": "img/certificates/HTML & CSS Course_Certificate_En conv 1.png",
+        "link": "https://drive.google.com/file/d/1XGzT8chS0TmfHkPA6KEHEd6vT8Q9gVoH/view?usp=drive_link"
+    },
+    {
+        "id": 3,
+        "title": "Python Certificate",
+        "description": "Certified in completing the Python course by ITI.",
+        "image": "img/certificates/Python Course_Certificate_En conv 1.png",
+        "link": "https://drive.google.com/file/d/1PlPWeSM0KCLPIHGjPnxIVXVzl9TjvpcK/view?usp=drive_link"
+    },
+    {
+        "id": 4,
+        "title": "Leadership Certificate",
+        "description": "Certified in completing the Effective Leadership course by HP LIFE.",
+        "image": "img/certificates/Effective Leadership conv 1.png",
+        "link": "https://drive.google.com/file/d/1PlPWeSM0KCLPIHGjPnxIVXVzl9TjvpcK/view?usp=drive_link"
+    }
+]

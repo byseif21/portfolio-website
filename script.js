@@ -1,3 +1,7 @@
+import "@fontsource/poppins/400.css";
+import "@fontsource/poppins/600.css";
+import "@fontsource/poppins/700.css";
+
 document.addEventListener("DOMContentLoaded", () => {
     const blobs = document.querySelectorAll(".blob");
     let currentScroll = 0;
@@ -24,11 +28,14 @@ const dynamicText2 = document.querySelector(".myweblink");
 let wordIndex2 = 0;
 let charIndex2 = 0;
 let isDeleting2 = false;
+const __hasVisitedSession = (() => {
+    try { return sessionStorage.getItem('visited_session') === '1'; } catch { return false; }
+})();
 
 function typeEffect2() {
     const currentWord = words2[wordIndex2];
     const displayedText = currentWord.substring(0, charIndex2);
-    dynamicText2.textContent = displayedText;
+    if (dynamicText2) dynamicText2.textContent = displayedText;
 
     if (!isDeleting2 && charIndex2 < currentWord.length) {
         charIndex2++;
@@ -48,32 +55,40 @@ function typeEffect2() {
     }
 }
 
-// Start the typing effect immediately
-typeEffect2();
+// Start the typing effect only if first visit in this session
+if (!__hasVisitedSession) {
+    typeEffect2();
+}
 
-// Wait for the welcome screen to be 70% faded
-setTimeout(() => {
-    const welcomeScreen = document.getElementById("welcome-screen");
-    welcomeScreen.style.display = "none";
+// Wait for the welcome screen to be 70% faded (only for first visit)
+if (!__hasVisitedSession) {
+    setTimeout(() => {
+        const welcomeScreen = document.getElementById("welcome-screen");
+        if (welcomeScreen) welcomeScreen.style.display = "none";
 
-    const mainContent = document.getElementById("main-content");
-    mainContent.style.display = "block";
+        const mainContent = document.getElementById("main-content");
+        if (mainContent) mainContent.style.display = "block";
 
-    // Initialize the page
-    initializePage();
-}, 3500); // 70% of 5 seconds = 3.5 seconds
+        // Initialize the page
+        if (typeof initializePage === 'function') initializePage();
+    }, 3500); // 70% of 5 seconds = 3.5 seconds
+}
 
 // remove the loading screen after the page loads
 window.addEventListener("load", () => {
     const loadingScreen = document.querySelector(".loading-screen");
-    loadingScreen.style.opacity = "0";  // Fade out effect
-    setTimeout(() => {
-        loadingScreen.style.display = "none"; // Remove from DOM
-    }, 500); // Wait for fade effect
+    if (loadingScreen) {
+        loadingScreen.style.opacity = "0"; // Fade out effect
+        setTimeout(() => {
+            loadingScreen.style.display = "none"; // Remove from DOM
+        }, 500); // Wait for fade effect
+    }
 });
 
 // Function to initialize the page
 function initializePage() {
+    if (window.__pageInitialized) return;
+    window.__pageInitialized = true;
     // Intersection Observer for scroll animations
     const sections = document.querySelectorAll('.section');
     const observer = new IntersectionObserver(
@@ -90,129 +105,60 @@ function initializePage() {
     );
     sections.forEach((section) => observer.observe(section));
 
-    // Sample data for projects and certificates
-    const projects = [
-
-        {
-            id: 1,
-            title: "Onklo - Clothing Frontend Project",
-            description: "A custom, responsive front-end e-commerce template designed and built from scratch.",
-            image: "img/projects/project1.png",
-            link: "https://byseif21.github.io/OnKloFrontDD",
-            github: "https://github.com/byseif21/OnKloFrontDD",
-            techStack: ["HTML", "CSS", "JavaScript"],
-        },
-        {
-            id: 2,
-            title: "Static Portfolio Website Project",
-            description: "This is my personal portfolio website, showcasing my skills, projects, and experience as a Full Stack Developer.",
-            image: "img/projects/project2.png",
-            link: "#",
-            github: "https://github.com/byseif21/portfolio-website",
-            techStack: ["HTML", "CSS", "JavaScript"],
-        },
-
-        {
-            id: 3,
-            title: "StyleZa - Frontend Full Template",
-            description: "A modern, responsive UI template for an online clothing store, featuring a sleek and user-friendly design. It offers a smooth user experience across all devices, making it ideal for stores that want to showcase their products professionally.",
-            image: "img/projects/Styleza.png",
-            link: "https://byseif21.github.io/StylezaFD/",
-            github: "https://github.com/byseif21/StylezaFD",
-            techStack: ["HTML5", "CSS", "JavaScript"]
-        },
-
-        {
-            id: 4,
-            title: "Mr. Deli - Restaurant Website",
-            description: "A modern and responsive restaurant website designed for Mr. Deli, featuring an elegant UI, interactive menu, and seamless user experience across devices.",
-            image: "img/projects/mrdeli.png",
-            link: "https://www.mr-deli.com",
-            github: "",
-            techStack: ["HTML5", "CSS", "JavaScript"]
-        },
-
-        {
-            id: 5,
-            title: "OnKlo - Full-Stack E-Commerce Platform",
-            description: "The full MVC version of the Clothing Frontend Project, now a dynamic and scalable e-commerce platform.",
-            image: "img/projects/project1.png",
-            link: "https://byseif21.github.io/OnKloFrontDD",
-            github: "https://github.com/byseif21/OnKlo",
-            techStack: ["C#", "ASP.NET MVC", "HTML5", "CSS", "JavaScript", "Entity Framework", "SQL Server"]
-        },
-
-        {
-            id: 6,
-            title: "Movie Rating Website Platform",
-            description: "An advanced, full-featured movie rating and review platform built with .NET MVC.",
-            image: "img/projects/project4.jpg",
-            link: "javascript:void(0);",
-            github: "https://github.com/byseif21/eRmovie",
-            techStack: ["C#", "ASP.NET MVC", "Bootstrap", "Entity Framework", "SQL Server"]
+    // Fetch data from JSON files
+    async function fetchJSONData(url) {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
-    ];
+        return response.json();
+    }
 
-    const certificates = [
-        {
-            id: 1,
-            title: "THE WEB DEVELOPMENT CHALLENGER TRACK",
-            description: "Certified in Advanced WEB DEVELOPMENT by Udacity.",
-            image: "img/certificates/Udacity Nanodegree Graduation Certificate.png",
-            link: "https://www.udacity.com/certificate/e/51436012-4aec-11ed-bba3-13d109eae405",
-        },
+    let projects = [];
+    let certificates = [];
+    let techStack = [];
 
-        {
-            id: 2,
-            title: "HTML & CSS",
-            description: "Certified in completing learning HTML & CSS by ITI.",
-            image: "img/certificates/HTML & CSS Course_Certificate_En conv 1.png",
-            link: "https://drive.google.com/file/d/1XGzT8chS0TmfHkPA6KEHEd6vT8Q9gVoH/view?usp=drive_link",
-        },
+    Promise.all([
+        fetchJSONData('data/projects.json'),
+        fetchJSONData('data/certificates.json'),
+        fetchJSONData('data/techStack.json')
+    ]).then(data => {
+        projects = data[0];
+        certificates = data[1];
+        techStack = data[2];
 
-        {
-            id: 3,
-            title: "Python Certificate",
-            description: "Certified in completing the Python course by ITI.",
-            image: "img/certificates/Python Course_Certificate_En conv 1.png",
-            link: "https://drive.google.com/file/d/1PlPWeSM0KCLPIHGjPnxIVXVzl9TjvpcK/view?usp=drive_link",
-        },
+        // Save data to local storage
+        localStorage.setItem("projects", JSON.stringify(projects));
+        localStorage.setItem("certificates", JSON.stringify(certificates));
+        localStorage.setItem("techStack", JSON.stringify(techStack));
 
-        {
-            id: 4,
-            title: "Leadership Certificate",
-            description: "Certified in completing the Effective Leadership course by HP LIFE.",
-            image: "img/certificates/Effective Leadership conv 1.png",
-            link: "https://drive.google.com/file/d/17bK79HgUcCIIvMmmkciGXdatKVEY6JsJ/view",
-        },
+        // Render projects, certificates, and tech stack
+        renderProjects(projects, 2); // Initial load with 2 projects
+        renderCertificates(certificates);
+        renderTechStack(techStack);
 
-        {
-            id: 5,
-            title: "AI Certificate",
-            description: "Certified in completing the AI course by HP LIFE.",
-            image: "img/certificates/AI for Beginners conv 1.png",
-            link: "https://drive.google.com/file/d/1LvjzAO_EPHHiM-0eNTPpqBvhyTJFOAo-/view?usp=drive_link",
-        }
-    ];
-
-    // Save data to local storage
-    localStorage.setItem("projects", JSON.stringify(projects));
-    localStorage.setItem("certificates", JSON.stringify(certificates));
-
-    // Load projects and certificates from local storage
-    const storedProjects = JSON.parse(localStorage.getItem("projects")) || [];
-    const storedCertificates = JSON.parse(localStorage.getItem("certificates")) || [];
-
-    // Render projects, certificates, and tech stack
-    renderProjects(2); // Initial load with 2 projects
-    renderCertificates();
-    renderTechStack();
-
+    }).catch(error => {
+        console.error('Error fetching data:', error);
+    });
     // Add event listener to the "See More" / "Show Less" button
     const loadMoreButton = document.querySelector("#projects .btn");
     loadMoreButton.addEventListener("click", () => {
-        visibleProjects = visibleProjects >= storedProjects.length ? 2 : visibleProjects + 2;
-        renderProjects(visibleProjects);
+        visibleProjects = visibleProjects >= projects.length ? 2 : visibleProjects + 2;
+        renderProjects(projects, visibleProjects);
+
+        // Smoothly update container height after project list changes
+        const tabContainer = document.querySelector('.tab-container');
+        const activeTab = document.querySelector('.tab-content.active');
+        if (tabContainer && activeTab) {
+            const targetHeight = activeTab.offsetHeight;
+            tabContainer.style.height = `${tabContainer.offsetHeight}px`;
+            requestAnimationFrame(() => {
+                tabContainer.style.height = `${targetHeight}px`;
+                setTimeout(() => {
+                    tabContainer.style.height = '';
+                }, 500);
+            });
+        }
     });
 
     // Dynamic typing effect for the main text
@@ -255,99 +201,56 @@ function initializePage() {
         }
     }
 
-    // Start the first typing effect after the welcome screen 
-    setTimeout(typeEffect, 500);
-
-    // Smooth scrolling for stats
-    const stats = document.querySelectorAll(".stat");
-    stats.forEach(stat => {
-        stat.addEventListener("click", () => {
-            const targetId = stat.getAttribute("data-target");
-            const targetSection = document.querySelector(targetId);
-            if (targetSection) {
-                targetSection.scrollIntoView({ behavior: "smooth" });
-            }
-        });
-    });
+    typeEffect();
 }
 
-// Function to render projects
 let visibleProjects = 2;
-function renderProjects(limit) {
-    const projectsGrid = document.querySelector(".projects-grid");
-    projectsGrid.innerHTML = "";
+function renderProjects(projectsToRender, limit) {
+    const projectsGrid = document.querySelector("#projects .projects-grid");
 
-    const storedProjects = JSON.parse(localStorage.getItem("projects")) || [];
-    storedProjects.slice(0, limit).forEach((project, index) => {
-        const projectCard = document.createElement("div");
-        projectCard.classList.add("project-card", "hidden");
-        projectCard.innerHTML = `
-            <img src="${project.image}" alt="${project.title}" />
-            <h3>${project.title}</h3>
-            <p>${project.description}</p>
-        `;
-        projectCard.addEventListener("click", () => openModal(project));
-        projectsGrid.appendChild(projectCard);
-
-        setTimeout(() => {
-            projectCard.classList.remove("hidden");
-        }, index * 150);
-    });
-
-    const loadMoreButton = document.querySelector("#projects .btn");
-    loadMoreButton.textContent = limit >= storedProjects.length ? "Show Less" : "See More";
+    projectsGrid.innerHTML = projectsToRender
+        .slice(0, limit)
+        .map(
+            (project) => `
+                <div class="project-card" onclick='openModal(${JSON.stringify(project)})'>
+                    <img src="${project.image}" alt="${project.title}" />
+                    <h3>${project.title}</h3>
+                    <p>${project.description}</p>
+                </div>
+            `
+        )
+        .join("");
 }
 
-// Function to render certificates
-function renderCertificates() {
-    const certificatesGrid = document.querySelector(".certificates-grid");
-    certificatesGrid.innerHTML = "";
+function renderCertificates(certificatesToRender) {
+    const certificatesGrid = document.querySelector("#certificates .certificates-grid");
 
-    const storedCertificates = JSON.parse(localStorage.getItem("certificates")) || [];
-    storedCertificates.forEach((certificate) => {
-        const certificateCard = document.createElement("div");
-        certificateCard.classList.add("certificate-card");
-        certificateCard.innerHTML = `
-            <img src="${certificate.image}" alt="${certificate.title}" />
-            <h3>${certificate.title}</h3>
-            <p>${certificate.description}</p>
-        `;
-        certificateCard.addEventListener("click", () => window.open(certificate.link, "_blank"));
-        certificatesGrid.appendChild(certificateCard);
-    });
+    certificatesGrid.innerHTML = certificatesToRender
+        .map(
+            (cert) => `
+                <div class="certificate-card" onclick="window.open('${cert.link}', '_blank')">
+                    <img src="${cert.image}" alt="${cert.title}" />
+                    <h3 style="padding: 1rem; margin: 0;">${cert.title}</h3>
+                    <p style="padding: 0 1rem 1rem; color: #94a3b8;">${cert.description}</p>
+                </div>
+            `
+        )
+        .join("");
 }
 
-// Function to render tech stack icons
-function renderTechStack() {
-    const techStackGrid = document.querySelector(".tech-stack-grid");
-    techStackGrid.innerHTML = "";
+function renderTechStack(techStackToRender) {
+    const techStackGrid = document.querySelector("#tech-stack .tech-stack-grid");
 
-    const techStacks = [
-        { icon: "img/TechStack/html.svg", language: "HTML" },
-        { icon: "img/TechStack/css.svg", language: "CSS" },
-        { icon: "img/TechStack/javascript.svg", language: "JavaScript" },
-        { icon: "img/TechStack/typescript.svg", language: "TypeScript" },
-        { icon: "img/TechStack/Csharp.svg", language: "C#" },
-        { icon: "img/TechStack/t-sql-removebg.png", language: "T-Sql" },
-        { icon: "img/TechStack/python.svg", language: "Python" },
-        { icon: "img/TechStack/C+.svg", language: "C++" },
-        { icon: "img/TechStack/nodejs.svg", language: "Node.js" },
-        { icon: "img/TechStack/Dotnet.svg", language: ".NET Core" },
-        { icon: "img/TechStack/bootstrap.svg", language: "Bootstrap" },
-        { icon: "img/TechStack/mongodb.svg", language: "MongoDB" },
-        { icon: "img/TechStack/sql-server.svg", language: "Sql Server" },
-        { icon: "img/TechStack/firebase.svg", language: "Firebase" },
-    ];
-
-    techStacks.forEach((tech) => {
-        const techStackItem = document.createElement("div");
-        techStackItem.classList.add("tech-stack-item");
-        techStackItem.innerHTML = `
-            <img src="${tech.icon}" alt="${tech.language}" />
-            <span>${tech.language}</span>
-        `;
-        techStackGrid.appendChild(techStackItem);
-    });
+    techStackGrid.innerHTML = techStackToRender
+        .map(
+            (tech) => `
+                <div class="tech-stack-item">
+                    <img src="${tech.icon}" alt="${tech.name}" />
+                    <span>${tech.name}</span>
+                </div>
+            `
+        )
+        .join("");
 }
 
 // Function to open modal with project details
@@ -365,6 +268,8 @@ function openModal(project) {
 
     modal.classList.add("open");
 }
+// Expose to global for inline onclick usage
+window.openModal = openModal;
 
 // Close modal when clicking outside or on the close button
 window.addEventListener("click", (event) => {
@@ -374,78 +279,117 @@ window.addEventListener("click", (event) => {
     }
 });
 
-// Tabs functionality
-const tabButtons = document.querySelectorAll(".tab-btn");
-const tabContents = document.querySelectorAll(".tab-content");
-let currentTabIndex = 0;
-
-tabButtons.forEach((button, index) => {
-    button.addEventListener("click", () => {
-        const newTabIndex = index;
-        const newTabId = button.getAttribute("data-tab");
-        const newTab = document.getElementById(newTabId);
-
-        if (newTab.classList.contains("active")) return;
-
-        console.log(`From ${currentTabIndex} to ${newTabIndex}`);
-
-        // Update button states
-        tabButtons.forEach((btn) => btn.classList.remove("active"));
-        button.classList.add("active");
-
-        const currentTab = document.querySelector(".tab-content.active");
-        if (currentTab) {
-            let exitDirection;
-            let enterDirection;
-
-            if (newTabIndex > currentTabIndex) {
-                // right IN ORDER
-                exitDirection = "left";
-                enterDirection = "right";
-            } else {
-                //  left IN ORDER
-                exitDirection = "right";
-                enterDirection = "left";
+// Session-based skip for welcome/loading screens
+(function manageSessionScreens() {
+    try {
+        const sessionKey = 'visited_session';
+        const hasVisited = sessionStorage.getItem(sessionKey) === '1';
+        const welcomeScreen = document.getElementById('welcome-screen');
+        const loadingScreen = document.querySelector('.loading-screen');
+        if (hasVisited) {
+            if (welcomeScreen) welcomeScreen.style.display = 'none';
+            if (loadingScreen) loadingScreen.style.display = 'none';
+            const mainContent = document.getElementById('main-content');
+            if (mainContent) mainContent.style.display = 'block';
+            // Initialize immediately if skipping
+            if (typeof initializePage === 'function') {
+                initializePage();
             }
-
-            console.log(`Exit: ${exitDirection}, Enter: ${enterDirection}`);
-
-            // Remove any existing transition classes
-            tabContents.forEach((tab) => {
-                if (tab !== currentTab && tab !== newTab) {
-                    tab.classList.remove("active", "exit-left", "exit-right", "enter-left", "enter-right");
-                }
-            });
-
-            // Animate out current tab
-            currentTab.classList.remove("active");
-            currentTab.classList.add(`exit-${exitDirection}`);
-
-            // Set up the new tab's initial position based on where it's coming from
-            newTab.classList.remove("exit-left", "exit-right", "enter-left", "enter-right");
-            newTab.style.transform = enterDirection === "right" ? "translateX(100%)" : "translateX(-100%)";
-            newTab.style.opacity = "0";
-
-            // Animate
-            setTimeout(() => {
-                newTab.classList.add(`enter-${enterDirection}`);
-                newTab.classList.add("active");
-            }, 50);
-
-            // Clean up 
-            setTimeout(() => {
-                newTab.classList.remove(`enter-${enterDirection}`);
-                currentTab.classList.remove(`exit-${exitDirection}`);
-                currentTab.style.transform = exitDirection === "left" ? "translateX(-100%)" : "translateX(100%)";
-                currentTab.style.opacity = "0";
-            }, 500);
         } else {
-            newTab.classList.add("active");
+            sessionStorage.setItem(sessionKey, '1');
         }
+    } catch (e) {}
+})();
 
-        currentTabIndex = newTabIndex;
+// Tabs functionality
+const tabButtons = document.querySelectorAll('.tab-btn');
+const tabContents = document.querySelectorAll('.tab-content');
+const tabContainerEl = document.querySelector('.tab-container');
+let currentTabIndex = Array.from(tabButtons).findIndex(btn => btn.classList.contains('active'));
+if (currentTabIndex < 0) currentTabIndex = 0;
+let isAnimatingTabs = false;
+
+function switchTab(newTabIndex) {
+    if (isAnimatingTabs || newTabIndex === currentTabIndex) return;
+    const newButton = tabButtons[newTabIndex];
+    const newTabId = newButton.getAttribute('data-tab');
+    const newTab = document.getElementById(newTabId);
+    const currentTab = document.querySelector('.tab-content.active');
+    if (!newTab || !currentTab) return;
+
+    // Update button states
+    tabButtons.forEach(b => b.classList.remove('active'));
+    newButton.classList.add('active');
+
+    // Height management
+    const startHeight = currentTab.offsetHeight;
+    if (tabContainerEl) {
+        const activeTab = document.querySelector('.tab-content.active');
+        if (activeTab) {
+            tabContainerEl.style.height = `${activeTab.offsetHeight}px`;
+            requestAnimationFrame(() => { tabContainerEl.style.height = ''; });
+        }
+    }
+
+    // Direction based on index (restore original mapping)
+    const goingRight = newTabIndex > currentTabIndex;
+    const exitDirection = goingRight ? 'left' : 'right';
+    const enterDirection = goingRight ? 'right' : 'left';
+
+    // cleanup
+    tabContents.forEach(tab => {
+        if (tab !== currentTab && tab !== newTab) {
+            tab.classList.remove('active', 'exit-left', 'exit-right', 'enter-left', 'enter-right');
+            tab.style.transform = '';
+            tab.style.opacity = '';
+        }
     });
-});
+
+    // Animate out current tab
+    currentTab.classList.remove('active');
+    currentTab.classList.add(`exit-${exitDirection}`);
+
+    // new tab
+    newTab.classList.remove('exit-left', 'exit-right', 'enter-left', 'enter-right');
+    newTab.style.transform = enterDirection === 'right' ? 'translateX(100%)' : 'translateX(-100%)';
+    newTab.style.opacity = '0';
+
+    isAnimatingTabs = true;
+
+    setTimeout(() => {
+        newTab.classList.add(`enter-${enterDirection}`);
+        newTab.classList.add('active');
+
+        // Animate container height to fit new tab
+        if (tabContainerEl) {
+            const targetHeight = newTab.offsetHeight;
+            requestAnimationFrame(() => {
+                tabContainerEl.style.height = `${targetHeight}px`;
+            });
+        }
+    }, 20);
+
+    // Clean up after animation
+    setTimeout(() => {
+        newTab.classList.remove(`enter-${enterDirection}`);
+        currentTab.classList.remove(`exit-${exitDirection}`);
+        currentTab.style.transform = '';
+        currentTab.style.opacity = '';
+        newTab.style.transform = '';
+        newTab.style.opacity = '';
+        if (tabContainerEl) {
+            tabContainerEl.style.height = '';
+        }
+        currentTabIndex = newTabIndex;
+        isAnimatingTabs = false;
+    }, 550);
+}
+
+if (tabButtons.length) {
+    tabButtons.forEach((button, index) => {
+        button.addEventListener('click', () => switchTab(index));
+    });
+}
 
 // Contact form functionality
 document.addEventListener("DOMContentLoaded", function () {
@@ -474,7 +418,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    form.addEventListener("submit", handleSubmit);
+    if (form) form.addEventListener("submit", handleSubmit);
 
     function typeEffect(message, statusClass) {
         formStatus.textContent = "";
