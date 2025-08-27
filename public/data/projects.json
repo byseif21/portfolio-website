@@ -1,56 +1,64 @@
 [
-    {
-        "id": 1,
-        "title": "Onklo - Clothing Frontend Project",
-        "description": "A custom, responsive front-end e-commerce template designed and built from scratch.",
-        "image": "img/projects/project1.png",
-        "link": "https://byseif21.github.io/OnKloFrontDD",
-        "github": "https://github.com/byseif21/OnKloFrontDD",
-        "techStack": ["HTML", "CSS", "JavaScript"]
-    },
-    {
-        "id": 2,
-        "title": "Static Portfolio Website Project",
-        "description": "This is my personal portfolio website, showcasing my skills, projects, and experience as a Full Stack Developer.",
-        "image": "img/projects/project2.png",
-        "link": "#",
-        "github": "https://github.com/byseif21/portfolio-website",
-        "techStack": ["HTML", "CSS", "JavaScript"]
-    },
-    {
-        "id": 3,
-        "title": "StyleZa - Frontend Full Template",
-        "description": "A modern, responsive UI template for an online clothing store, featuring a sleek and user-friendly design. It offers a smooth user experience across all devices, making it ideal for stores that want to showcase their products professionally.",
-        "image": "img/projects/Styleza.png",
-        "link": "https://byseif21.github.io/StylezaFD/",
-        "github": "https://github.com/byseif21/StylezaFD",
-        "techStack": ["HTML5", "CSS", "JavaScript"]
-    },
-    {
-        "id": 4,
-        "title": "Mr. Deli - Restaurant Website",
-        "description": "A modern and responsive restaurant website designed for Mr. Deli, featuring an elegant UI, interactive menu, and seamless user experience across devices.",
-        "image": "img/projects/mrdeli.png",
-        "link": "https://www.mr-deli.com",
-        "github": "",
-        "techStack": ["HTML5", "CSS", "JavaScript"]
-    },
-    {
-        "id": 5,
-        "title": "OnKlo - Full-Stack E-Commerce Platform",
-        "description": "The full MVC version of the Clothing Frontend Project, now a dynamic and scalable e-commerce platform.",
-        "image": "img/projects/project1.png",
-        "link": "https://byseif21.github.io/OnKloFrontDD",
-        "github": "https://github.com/byseif21/OnKlo",
-        "techStack": ["C#", "ASP.NET MVC", "HTML5", "CSS", "JavaScript", "Entity Framework", "SQL Server"]
-    },
-    {
-        "id": 6,
-        "title": "Movie Rating Website Platform",
-        "description": "An advanced, full-featured movie rating and review platform built with .NET MVC.",
-        "image": "img/projects/project4.jpg",
-        "link": "javascript:void(0);",
-        "github": "https://github.com/byseif21/eRmovie",
-        "techStack": ["C#", "ASP.NET MVC", "Bootstrap", "Entity Framework", "SQL Server"]
-    }
+  {
+    "id": 1,
+    "title": "Onklo - Clothing Frontend Project",
+    "description": "A custom, responsive front-end e-commerce template designed and built from scratch.",
+    "image": "img/projects/project1.png",
+    "link": "https://byseif21.github.io/OnKloFrontDD",
+    "github": "https://github.com/byseif21/OnKloFrontDD",
+    "techStack": ["HTML", "CSS", "JavaScript"]
+  },
+  {
+    "id": 2,
+    "title": "Static Portfolio Website Project",
+    "description": "This is my personal portfolio website, showcasing my skills, projects, and experience as a Full Stack Developer.",
+    "image": "img/projects/project2.png",
+    "link": "#",
+    "github": "https://github.com/byseif21/portfolio-website",
+    "techStack": ["HTML", "CSS", "JavaScript"]
+  },
+  {
+    "id": 3,
+    "title": "StyleZa - Frontend Full Template",
+    "description": "A modern, responsive UI template for an online clothing store, featuring a sleek and user-friendly design. It offers a smooth user experience across all devices, making it ideal for stores that want to showcase their products professionally.",
+    "image": "img/projects/Styleza.png",
+    "link": "https://byseif21.github.io/StylezaFD/",
+    "github": "https://github.com/byseif21/StylezaFD",
+    "techStack": ["HTML5", "CSS", "JavaScript"]
+  },
+  {
+    "id": 4,
+    "title": "Mr. Deli - Restaurant Website",
+    "description": "A modern and responsive restaurant website designed for Mr. Deli, featuring an elegant UI, interactive menu, and seamless user experience across devices.",
+    "image": "img/projects/mrdeli.png",
+    "link": "https://www.mr-deli.com",
+    "github": "",
+    "techStack": ["HTML5", "CSS", "JavaScript"]
+  },
+  {
+    "id": 5,
+    "title": "OnKlo - Full-Stack E-Commerce Platform",
+    "description": "The full MVC version of the Clothing Frontend Project, now a dynamic and scalable e-commerce platform.",
+    "image": "img/projects/project1.png",
+    "link": "https://byseif21.github.io/OnKloFrontDD",
+    "github": "https://github.com/byseif21/OnKlo",
+    "techStack": [
+      "C#",
+      "ASP.NET MVC",
+      "HTML5",
+      "CSS",
+      "JavaScript",
+      "Entity Framework",
+      "SQL Server"
+    ]
+  },
+  {
+    "id": 6,
+    "title": "Movie Rating Website Platform",
+    "description": "An advanced, full-featured movie rating and review platform built with .NET MVC.",
+    "image": "img/projects/project4.jpg",
+    "link": "javascript:void(0);",
+    "github": "https://github.com/byseif21/eRmovie",
+    "techStack": ["C#", "ASP.NET MVC", "Bootstrap", "Entity Framework", "SQL Server"]
+  }
 ]
