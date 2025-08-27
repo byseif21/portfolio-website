@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CV — Seif Soliman Mohammed</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="cv.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+  </head>
+  <body>
+    <!-- Background Blobs -->
+    <div class="blob-container">
+      <div class="blob blob1"></div>
+      <div class="blob blob2"></div>
+      <div class="blob blob3"></div>
+      <div class="blob blob4"></div>
+    </div>
+
+    <!-- Grid Overlay -->
+    <div class="grid-overlay"></div>
+
+    <header class="cv-header">
+      <div class="container">
+        <a class="logo" href="index.html">21</a>
+        <nav class="cv-nav">
+          <a href="index.html#contact" class="nav-link">Contact</a>
+          <a href="index.html" class="nav-link">Back to Portfolio</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="cv-main">
+      <section class="hero container">
+        <div class="hero-content">
+          <h1>Curriculum Vitae</h1>
+          <p class="tagline">
+            Full Stack Developer — Building robust, scalable, and delightful digital products.
+          </p>
+          <div class="meta">
+            <span><i class="fa-solid fa-location-dot"></i> Alexandria, Egypt</span>
+            <span><i class="fa-solid fa-envelope"></i> byseif21@gmail.com</span>
+            <span><i class="fa-brands fa-github"></i> github.com/byseif21</span>
+          </div>
+          <a
+            class="btn primary"
+            href="https://drive.google.com/file/d/1YEh2i_sf_qytVzCmkX-4lGp1e9acKUiT/view?usp=drive_link"
+            target="_blank"
+            rel="noopener"
+            >Download CV</a
+          >
+        </div>
+      </section>
+
+      <!-- Timeline Map Section -->
+      <section class="map container">
+        <div class="map-line" aria-hidden="true"></div>
+
+        <!-- Template for timeline node -->
+        <template id="timeline-node-template">
+          <div class="node">
+            <div class="pin"></div>
+            <div class="card">
+              <span class="eyebrow"></span>
+              <h3></h3>
+              <p class="location"></p>
+              <ul class="chips"></ul>
+              <div class="details"></div>
+            </div>
+          </div>
+        </template>
+      </section>
+
+      <section class="cta container">
+        <h2>Want the PDF version?</h2>
+        <p>You can download the latest PDF of my CV here.</p>
+        <a
+          class="btn primary"
+          href="https://drive.google.com/file/d/1YEh2i_sf_qytVzCmkX-4lGp1e9acKUiT/view?usp=drive_link"
+          target="_blank"
+          rel="noopener"
+          >Download CV</a
+        >
+      </section>
+    </main>
+
+    <footer class="cv-footer">
+      <div class="container">
+        <p>&copy; 2025 Seif Soliman Mohammed</p>
+        <div class="social-links">
+          <a href="https://www.linkedin.com/in/-seif-soliman/"><i class="fab fa-linkedin"></i></a>
+          <a href="https://github.com/byseif21"><i class="fab fa-github"></i></a>
+          <a href="https://www.instagram.com/byseif21/profilecard/?igsh=MWducWUxOWVhbzBtbw=="
+            ><i class="fab fa-instagram"></i
+          ></a>
+        </div>
+      </div>
+    </footer>
+
+    <script type="module" src="cv.js"></script>
+  </body>
+</html>

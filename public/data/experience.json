@@ -1,0 +1,111 @@
+[
+  {
+    "period": "Feb 2025 – Present",
+    "organization": "Freelance",
+    "location": "Remote",
+    "role": "Freelance Web Developer",
+    "projects": [
+      {
+        "title": "Business Websites & Landing Pages",
+        "description": "Designed and developed responsive websites for small businesses and personal brands, focusing on accessibility, performance, and clean UI.",
+        "achievements": [
+          "Delivered end‑to‑end projects including planning, development, and deployment",
+          "Improved Lighthouse performance scores to 90+ across multiple projects"
+        ],
+        "skills": ["HTML5", "CSS3", "JavaScript", "React", ".NET", "Responsive Design"]
+      },
+      {
+        "title": "E‑commerce & API Integrations",
+        "description": "Integrated payment gateways and third‑party APIs, and implemented secure forms and dashboards.",
+        "achievements": ["Reduced integration time with reusable components and utilities"],
+        "skills": ["REST APIs", "Authentication", "SQL", "State Management"]
+      }
+    ]
+  },
+
+  {
+    "period": "Oct 2024 – May 2025",
+    "organization": "Digital Egypt Pioneers Initiative (DEPI)",
+    "location": "Alexandria, Egypt",
+    "role": "Software Engineer Intern",
+    "projects": [
+      {
+        "title": "Full Stack .NET Web Application Development",
+        "description": "Led and developed core features of (Styleza), a scalable web application using C#, .NET Core, and SQL for backend functionality and HTML5, CSS3, and JavaScript for front-end interfaces. Utilized ASP.NET Core MVC and Docker for containerization, ensuring efficient deployment and performance.",
+        "achievements": [
+          "Implemented most core functionality while guiding a 6-member team",
+          "Optimized APIs, improving response times by 15%",
+          "Reduced deployment errors by 20% using Docker"
+        ],
+        "skills": [
+          "C#",
+          ".NET Core",
+          "SQL",
+          "HTML5",
+          "CSS3",
+          "JavaScript",
+          "ASP.NET Core MVC",
+          "Docker"
+        ]
+      },
+      {
+        "title": "Database Management & Optimization",
+        "description": "Designed and optimized SQL databases, wrote efficient queries, and performed performance tuning to enhance application speed and reliability.",
+        "achievements": [
+          "Reduced database query execution time by 25%, improving overall application performance"
+        ],
+        "skills": ["SQL", "Database Tuning"]
+      }
+    ]
+  },
+
+  {
+    "period": "Jan 2025 – Apr 2025",
+    "organization": "Information Technology Industry Development Agency (ITIDA)",
+    "location": "Remote",
+    "role": "Freelance Web Developer Intern",
+    "projects": [
+      {
+        "title": "Client Management System Development",
+        "description": "Built a client management system using React, JavaScript, and .NET to streamline workflow and improve client communication. Implemented responsive design principles to ensure compatibility across devices.",
+        "achievements": [
+          "Delivered the project 2 weeks ahead of schedule, receiving positive feedback from clients for improved usability"
+        ],
+        "skills": ["React", "JavaScript", ".NET", "Responsive Design"]
+      },
+      {
+        "title": "Freelance Business Skills Training",
+        "description": "Participated in an intensive training program focused on client communication, pricing strategies, and project management. Applied these skills to manage multiple freelance projects simultaneously.",
+        "achievements": [
+          "Successfully negotiated project terms with 5+ clients, increasing freelance income by 30%"
+        ],
+        "skills": ["Client Communication", "Pricing Strategies", "Project Management"]
+      }
+    ]
+  },
+
+  {
+    "period": "2019 – 2023",
+    "organization": "ESF ELEKHLAS",
+    "location": "Alexandria, Egypt",
+    "role": "Apprenticeship (Multi-Role)",
+    "projects": [
+      {
+        "title": "Data Management & Analysis",
+        "description": "Managed and analyzed data for various projects, ensuring accuracy and efficiency. Used Microsoft Excel and SQL to organize and process large datasets.",
+        "achievements": [
+          "Developed a data management process that reduced errors by 20% and improved reporting efficiency by 15%"
+        ],
+        "skills": ["Excel", "SQL", "Data Analysis"]
+      },
+      {
+        "title": "Marketing & Sales Support",
+        "description": "Assisted in creating marketing strategies and managing sales operations. Used CRM tools to track customer interactions and improve engagement.",
+        "achievements": [
+          "Contributed to a marketing campaign that increased social media engagement by 40% and boosted sales by 25% in 6 months"
+        ],
+        "skills": ["Marketing", "Sales Support", "CRM"]
+      }
+    ]
+  }
+]
