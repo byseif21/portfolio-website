@@ -1,50 +1,68 @@
 ## **Seif Soliman's Portfolio Website**
 
-🚀 **A personal portfolio showcasing my projects, skills, and achievements.**
+**A personal portfolio showcasing my projects, skills, and achievements.**
 
-![Portfolio Preview](img/projects/p2.png)
+![Portfolio Preview](public/img/projects/p2.png)
 
 ### **📌 Overview**
 
-This is my personal portfolio website, designed to highlight my work as a **Full Stack Developer**. It features a modern UI, responsive design, and smooth animations to create an engaging and interactive experience.
+This is my personal portfolio website, designed to highlight my work as a **Full Stack Developer**. It features a modern UI, responsive design, and smooth animations to create an engaging and interactive experience. Built with Vite for fast development and optimized production builds.
 
 ### **🔧 Technologies Used**
 
-- **HTML5** - Structured and semantic markup
-- **CSS3** - Custom styles with responsive design
-- **JavaScript** - Interactive elements and animations
-- **FontAwesome** - Icons for better UI experience
-- **Git & GitHub** - Version control and project hosting
+- **HTML5** – Semantic, accessible markup
+- **CSS3** – Responsive, modern UI
+- **JavaScript (ES Modules)** – Interactive logic and animations
+- **Vite** – Dev server and build tooling
+- **PostCSS + Autoprefixer** – Cross-browser CSS
+- **ESLint + Prettier + Husky** – Code quality and formatting
+- **Font Awesome (CDN)** – Iconography
+- **@fontsource/poppins** – Typography
+- **Netlify Forms** – Contact form handling
+- **Git & GitHub** – Version control and hosting
 
 ### **📂 Project Structure**
 
 ```
-/portfolio-website
-│── /img                # Images and assets
-│── styles.css          # Stylesheet
-│── script.js           # JavaScript file
-│── index.html          # Main homepage
-│── README.md           # Project documentation
+my-final-portfolio-website
+├── public/
+│   ├── data/                # JSON data (projects, certificates, tech stack)
+│   └── img/                 # Images and assets
+├── index.html               # Main page
+├── script.js                # App logic (fetch + render)
+├── styles.css               # Styles
+├── cv.html / cv.css / cv.js # CV page
+├── package.json             # Scripts and tooling
+├── vite.config.js           # Vite configuration
+└── README.md                # Project documentation
 ```
 
 ### **🎨 Features**
 
-✅ Fully responsive design  
-✅ Dynamic typing effect for introduction  
-✅ Interactive project showcase with modal view  
-✅ Certificates section  
-✅ Tech Stack section  
-✅ Contact form with email submission  
-✅ Social media links
+✔️ Fully responsive design  
+✔️ Dynamic typing effect for introduction  
+✔️ Interactive project showcase with modal view  
+✔️ Certificates section  
+✔️ Tech Stack section  
+✔️ Contact form powered by Netlify Forms  
+✔️ Social media links
 
-### **🚀 Installation & Usage**
+### **🛠️ Installation & Usage**
 
 1. Clone the repository:
    ```sh
    git clone https://github.com/byseif21/portfolio-website.git
    ```
-2. Open `index.html` in your browser.
-3. Customize the content as needed.
+2. Install dependencies and start the dev server:
+   ```sh
+   npm install
+   npm run dev
+   ```
+3. Build for production (optional) and preview locally:
+   ```sh
+   npm run build
+   npm run preview
+   ```
 
 ### **📜 License & Attribution**
 
@@ -61,10 +79,10 @@ Your support means a lot, and I'd love to see how you customize it! 😊
 
 - Design inspired by [EkiZR](https://github.com/EkiZR)
 - Icons by [FontAwesome](https://fontawesome.com)
-- Hosted on **GitHub Pages**
+- Deployed on **Netlify**
 
 ### **📩 Contact**
 
-💻 Visit my portfolio: [seifsoliman.com](https://seifsoliman.netlify.app/)  
+🌐 Visit my portfolio: [seifsoliman.com](https://seifsoliman.netlify.app/)  
 📍 Contact me: [LinkedIn](https://www.linkedin.com/in/-seif-soliman/)  
 👨‍💻 GitHub: [@byseif21](https://github.com/byseif21)
