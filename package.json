@@ -1,18 +1,39 @@
 {
   "name": "my-final-portfolio-website",
   "version": "1.0.0",
-  "description": " **A personal portfolio showcasing my projects, skills, and achievements.**",
+  "description": "A personal portfolio showcasing my projects, skills, and achievements.",
+  "type": "module",
   "main": "script.js",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint --ext .js .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "portfolio",
+    "vite",
+    "vanilla-js",
+    "frontend"
+  ],
+  "author": "Seif Soliman Mohammed",
   "license": "ISC",
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not op_mini all"
+  ],
   "devDependencies": {
-    "vite": "^7.1.3"
+    "eslint": "^9.11.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.31.0",
+    "prettier": "^3.3.3",
+    "vite": "^7.1.3",
+    "vite-plugin-static-copy": "^3.1.2",
+    "postcss": "^8.4.47",
+    "autoprefixer": "^10.4.20"
   },
   "dependencies": {
     "@fontsource/poppins": "^5.2.6"
