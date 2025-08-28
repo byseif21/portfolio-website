@@ -29,7 +29,7 @@ async function fetchJSONData(url) {
 // Initialize CV rendering
 (async function initCV() {
   try {
-    const experience = await fetchJSONData('data/experience.json');
+    const experience = await fetchJSONData('/data/experience.json');
     renderTimeline(experience);
   } catch (e) {
     console.error('Error initializing CV page:', e);

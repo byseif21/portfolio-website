@@ -18,6 +18,13 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('scroll', handleScroll);
 });
 
+// public assets
+function assetUrl(path) {
+  if (!path) return '';
+  if (/^(https?:)?\//.test(path)) return path; // already absolute or protocol-relative
+  return `/${String(path).replace(/^\/+/, '')}`;
+}
+
 // Starting the typing effect (for the welcome screen)
 const words2 = ['www.seifsoliman.com'];
 const dynamicText2 = document.querySelector('.myweblink');
@@ -233,7 +240,7 @@ function renderProjects(projectsToRender, limit) {
     .map(
       (project) => `
                 <div class="project-card" onclick='openModal(${JSON.stringify(project)})'>
-                    <img src="${project.image}" alt="${project.title}" />
+                    <img src="${assetUrl(project.image)}" alt="${project.title}" />
                     <h3>${project.title}</h3>
                     <p>${project.description}</p>
                 </div>
@@ -249,7 +256,7 @@ function renderCertificates(certificatesToRender) {
     .map(
       (cert) => `
                 <div class="certificate-card" onclick="window.open('${cert.link}', '_blank')">
-                    <img src="${cert.image}" alt="${cert.title}" />
+                    <img src="${assetUrl(cert.image)}" alt="${cert.title}" />
                     <h3 style="padding: 1rem; margin: 0;">${cert.title}</h3>
                     <p style="padding: 0 1rem 1rem; color: #94a3b8;">${cert.description}</p>
                 </div>
@@ -265,8 +272,8 @@ function renderTechStack(techStackToRender) {
     .map(
       (tech) => `
                 <div class="tech-stack-item">
-                    <img src="${tech.icon}" alt="${tech.name}" />
-                    <span>${tech.name}</span>
+                    <img src="${assetUrl(tech.icon)}" alt="${assetUrl(tech.name)}" />
+                    <span>${assetUrl(tech.name)}</span>
                 </div>
             `
     )
@@ -276,7 +283,7 @@ function renderTechStack(techStackToRender) {
 // Function to open modal with project details
 function openModal(project) {
   const modal = document.getElementById('project-modal');
-  modal.querySelector('.modal-image').src = project.image;
+  modal.querySelector('.modal-image').src = assetUrl(project.image);
   modal.querySelector('.modal-title').textContent = project.title;
   modal.querySelector('.modal-description').textContent = project.description;
   modal.querySelector('.modal-tech-stack').innerHTML = project.techStack

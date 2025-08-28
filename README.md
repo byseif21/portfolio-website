@@ -28,16 +28,15 @@ my-final-portfolio-website
 ├── public/
 │   ├── data/                # JSON data (projects, certificates, tech stack)
 │   └── img/                 # Images and assets
-├── index.html               # Main page
-├── script.js                # App logic (fetch + render)
-├── styles.css               # Styles
-├── cv.html / cv.css / cv.js # CV page
-├── package.json             # Scripts and tooling
+├── html/               # HTML pages (index, cv)
+├── js/                 # App logic (ES modules)
+├── styles/            # Stylesheets
+├──├── package.json             # Scripts and tooling
 ├── vite.config.js           # Vite configuration
 └── README.md                # Project documentation
 ```
 
-### **🎨 Features**
+### **✨ Features**
 
 ✔️ Fully responsive design  
 ✔️ Dynamic typing effect for introduction  

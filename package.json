@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A personal portfolio showcasing my projects, skills, and achievements.",
   "type": "module",
-  "main": "script.js",
+  "main": "js/script.js",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
