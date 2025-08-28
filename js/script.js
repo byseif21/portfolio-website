@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function assetUrl(path) {
   if (!path) return '';
   if (/^(https?:)?\//.test(path)) return path; // already absolute or protocol-relative
-  return `/${String(path).replace(/^\/+/, '')}`;
+  return `${String(path).replace(/^\/+/, '')}`;
 }
 
 // Starting the typing effect (for the welcome screen)
