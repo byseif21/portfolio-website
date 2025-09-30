@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function assetUrl(path) {
   if (!path) return '';
   if (/^(https?:)?\//.test(path)) return path; // already absolute or protocol-relative
-  return `${String(path).replace(/^\/+/, '')}`;
+  return `/${String(path).replace(/^\/+/, '')}`;
 }
 
 // Starting the typing effect (for the welcome screen)
@@ -80,6 +80,42 @@ if (!__hasVisitedSession) {
     if (typeof initializePage === 'function') initializePage();
   }, 3500); // 70% of 5 seconds = 3.5 seconds
 }
+
+// asset-based loading progress indicator
+(() => {
+  const loadingTextEl = document.querySelector('.loading-text');
+  const images = Array.from(document.images);
+  const total = images.length || 1;
+  let loaded = 0;
+  const update = () => {
+    const pct = Math.round((loaded / total) * 100);
+    if (loadingTextEl) loadingTextEl.textContent = `Loading ${pct}%`;
+  };
+  images.forEach((img) => {
+    if (img.complete && img.naturalWidth) {
+      loaded++;
+      update();
+    } else {
+      img.addEventListener(
+        'load',
+        () => {
+          loaded++;
+          update();
+        },
+        { once: true }
+      );
+      img.addEventListener(
+        'error',
+        () => {
+          loaded++;
+          update();
+        },
+        { once: true }
+      );
+    }
+  });
+  update();
+})();
 
 // remove the loading screen after the page loads
 window.addEventListener('load', () => {
@@ -400,7 +436,7 @@ function switchTab(newTabIndex) {
     }
   }, 20);
 
-  // Clean up after animation
+  // Cleanup
   setTimeout(() => {
     newTab.classList.remove(`enter-${enterDirection}`);
     currentTab.classList.remove(`exit-${exitDirection}`);
