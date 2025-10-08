@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function assetUrl(path) {
   if (!path) return '';
   if (/^(https?:)?\//.test(path)) return path; // already absolute or protocol-relative
-  return `/${String(path).replace(/^\/+/, '')}`;
+  return `${String(path).replace(/^\/+/, '')}`;
 }
 
 // Starting the typing effect (for the welcome screen)
@@ -291,7 +291,7 @@ function renderCertificates(certificatesToRender) {
   certificatesGrid.innerHTML = certificatesToRender
     .map(
       (cert) => `
-                <div class="certificate-card" onclick="window.open('${cert.link}', '_blank')">
+                <div class="certificate-card" onclick="openCertificateModal(${JSON.stringify(cert).replace(/"/g, '&quot;')})">
                     <img src="${assetUrl(cert.image)}" alt="${cert.title}" />
                     <h3 style="padding: 1rem; margin: 0;">${cert.title}</h3>
                     <p style="padding: 0 1rem 1rem; color: #94a3b8;">${cert.description}</p>
@@ -333,14 +333,67 @@ function openModal(project) {
 
   modal.classList.add('open');
 }
-// Expose to global for inline onclick usage
+
+// detect PDF or image
+function getFileType(url) {
+  if (!url) return 'unknown';
+  const extension = url.split('.').pop().toLowerCase();
+  if (['pdf'].includes(extension)) return 'pdf';
+  if (['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg'].includes(extension)) return 'image';
+  // check if it's a Google Drive link
+  if (url.includes('drive.google.com')) {
+    // For Google Drive links, we'll treat them as PDFs by default
+    // but we could also check the file ID and make an API call if needed
+    return 'pdf';
+  }
+  return 'image'; // Default to image for local files
+}
+
+// open modal
+function openCertificateModal(certificate) {
+  const modal = document.getElementById('certificate-modal');
+  const imageElement = modal.querySelector('.certificate-image');
+  const pdfElement = modal.querySelector('.certificate-pdf');
+
+  // "View Original" link
+  const links = modal.querySelector('.modal-links');
+  links.innerHTML = `
+    <a href="${certificate.link}" class="btn" target="_blank">View Original</a>
+  `;
+
+  // file type
+  const fileType = getFileType(certificate.image);
+
+  if (fileType === 'pdf') {
+    // Show PDF iframe, hide image
+    imageElement.style.display = 'none';
+    pdfElement.style.display = 'block';
+    pdfElement.src = assetUrl(certificate.image);
+  } else {
+    // Show image, hide PDF iframe
+    pdfElement.style.display = 'none';
+    imageElement.style.display = 'block';
+    imageElement.src = assetUrl(certificate.image);
+  }
+
+  modal.classList.add('open');
+}
+
+// Expose functions to global for inline onclick usage
 window.openModal = openModal;
+window.openCertificateModal = openCertificateModal;
 
 // Close modal when clicking outside or on the close button
 window.addEventListener('click', (event) => {
-  const modal = document.getElementById('project-modal');
-  if (event.target === modal || event.target.classList.contains('close-modal')) {
-    modal.classList.remove('open');
+  const projectModal = document.getElementById('project-modal');
+  const certificateModal = document.getElementById('certificate-modal');
+
+  if (event.target === projectModal || event.target.classList.contains('close-modal')) {
+    projectModal.classList.remove('open');
+  }
+
+  if (event.target === certificateModal || event.target.classList.contains('close-modal')) {
+    certificateModal.classList.remove('open');
   }
 });
 
