@@ -510,6 +510,19 @@ if (tabButtons.length) {
   tabButtons.forEach((button, index) => {
     button.addEventListener('click', () => switchTab(index));
   });
+
+  // Navbar background based on scroll
+  const navbar = document.getElementById('navbar');
+  function updateNavbarBg() {
+    if (!navbar) return;
+    if (window.scrollY <= 0) {
+      navbar.classList.remove('scrolled');
+    } else {
+      navbar.classList.add('scrolled');
+    }
+  }
+  window.addEventListener('scroll', updateNavbarBg, { passive: true });
+  updateNavbarBg();
 }
 
 // Contact form functionality

@@ -343,9 +343,15 @@ html {
   top: 0;
   width: 100%;
   /*background: rgba(3, 0, 20, 0.8);*/
-  backdrop-filter: blur(10px);
+  /*backdrop-filter: blur(10px);*/
   z-index: 999;
   padding: 0.5rem 0;
+  transition: background 0.3s ease;
+}
+
+#navbar.scrolled {
+  background: rgba(3, 0, 20, 0.8);
+  backdrop-filter: blur(10px);
 }
 
 #navbar .logo {
@@ -1122,7 +1128,7 @@ html {
   padding: 2rem;
   border-radius: 0.5rem;
   max-width: 700px;
-  width: 90%;
+  /*width: 90%;*/
   position: relative;
   border: 1px solid #22d3ee;
   box-shadow: 0 0 20px rgba(34, 211, 238, 0.3);
