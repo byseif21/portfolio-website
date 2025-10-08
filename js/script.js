@@ -167,8 +167,9 @@ function initializePage() {
     fetchJSONData('/data/techStack.json'),
   ])
     .then((data) => {
-      projects = data[0];
-      certificates = data[1];
+      // Sort newest first by id
+      projects = (data[0] || []).slice().sort((a, b) => (b.id ?? 0) - (a.id ?? 0));
+      certificates = (data[1] || []).slice().sort((a, b) => (b.id ?? 0) - (a.id ?? 0));
       techStack = data[2];
 
       // Save data to local storage

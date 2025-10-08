@@ -1,17 +1,17 @@
 [
   {
     "id": 1,
-    "title": "THE WEB DEVELOPMENT CHALLENGER TRACK",
-    "description": "Certified in Advanced WEB DEVELOPMENT by Udacity.",
-    "image": "img/certificates/Udacity Nanodegree Graduation Certificate.png",
-    "link": "https://www.udacity.com/certificate/e/51436012-4aec-11ed-bba3-13d109eae405"
+    "title": "AI Certificate",
+    "description": "Certified in completing the AI course by HP LIFE.",
+    "image": "img/certificates/AI for Beginners conv 1.png",
+    "link": "https://drive.google.com/file/d/1LvjzAO_EPHHiM-0eNTPpqBvhyTJFOAo-/view?usp=drive_link"
   },
   {
     "id": 2,
-    "title": "HTML & CSS",
-    "description": "Certified in completing learning HTML & CSS by ITI.",
-    "image": "img/certificates/HTML & CSS Course_Certificate_En conv 1.png",
-    "link": "https://drive.google.com/file/d/1XGzT8chS0TmfHkPA6KEHEd6vT8Q9gVoH/view?usp=drive_link"
+    "title": "Leadership Certificate",
+    "description": "Certified in completing the Effective Leadership course by HP LIFE.",
+    "image": "img/certificates/Effective Leadership conv 1.png",
+    "link": "https://drive.google.com/file/d/1PlPWeSM0KCLPIHGjPnxIVXVzl9TjvpcK/view?usp=drive_link"
   },
   {
     "id": 3,
@@ -22,16 +22,16 @@
   },
   {
     "id": 4,
-    "title": "Leadership Certificate",
-    "description": "Certified in completing the Effective Leadership course by HP LIFE.",
-    "image": "img/certificates/Effective Leadership conv 1.png",
-    "link": "https://drive.google.com/file/d/1PlPWeSM0KCLPIHGjPnxIVXVzl9TjvpcK/view?usp=drive_link"
+    "title": "HTML & CSS",
+    "description": "Certified in completing learning HTML & CSS by ITI.",
+    "image": "img/certificates/HTML & CSS Course_Certificate_En conv 1.png",
+    "link": "https://drive.google.com/file/d/1XGzT8chS0TmfHkPA6KEHEd6vT8Q9gVoH/view?usp=drive_link"
   },
   {
     "id": 5,
-    "title": "AI Certificate",
-    "description": "Certified in completing the AI course by HP LIFE.",
-    "image": "img/certificates/AI for Beginners conv 1.png",
-    "link": "https://drive.google.com/file/d/1LvjzAO_EPHHiM-0eNTPpqBvhyTJFOAo-/view?usp=drive_link"
+    "title": "The Web Development Challanger Track",
+    "description": "Certified in Advanced WEB DEVELOPMENT by Udacity.",
+    "image": "img/certificates/Udacity Nanodegree Graduation Certificate.png",
+    "link": "https://www.udacity.com/certificate/e/51436012-4aec-11ed-bba3-13d109eae405"
   }
 ]
