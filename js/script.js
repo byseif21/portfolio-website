@@ -120,6 +120,12 @@ if (!__hasVisitedSession) {
 // remove the loading screen after the page loads
 window.addEventListener('load', () => {
   const loadingScreen = document.querySelector('.loading-screen');
+  const header = document.getElementById('navbar');
+  if (loadingScreen && header) {
+    const h = header.offsetHeight;
+    loadingScreen.style.top = `${h}px`;
+    loadingScreen.style.height = `calc(100vh - ${h}px)`;
+  }
   if (loadingScreen) {
     loadingScreen.style.opacity = '0'; // Fade out effect
     setTimeout(() => {
@@ -416,6 +422,8 @@ window.addEventListener('click', (event) => {
       }
     } else {
       sessionStorage.setItem(sessionKey, '1');
+      // only on first visit
+      if (loadingScreen) loadingScreen.style.display = 'flex';
     }
   } catch (e) {}
 })();
@@ -523,6 +531,35 @@ if (tabButtons.length) {
   }
   window.addEventListener('scroll', updateNavbarBg, { passive: true });
   updateNavbarBg();
+
+  // Smooth page transitions (fade-out on cross-page nav)
+  (function setupPageTransitions() {
+    document.body.classList.remove('page-leaving');
+    document.body.classList.add('page-loaded');
+
+    const links = document.querySelectorAll('a[href]');
+    links.forEach((link) => {
+      const href = link.getAttribute('href');
+      if (!href || href.startsWith('#') || href.startsWith('javascript:')) return;
+      link.addEventListener('click', (e) => {
+        if (link.target === '_blank') return; // allow external/new-tab
+        const url = new URL(href, window.location.href);
+        if (url.origin !== window.location.origin) return; // external domain
+        e.preventDefault();
+        const originalHref = window.location.href;
+        document.body.classList.add('page-leaving');
+        setTimeout(() => {
+          window.location.href = url.href;
+        }, 250);
+        // Fallback: if navigation fails, restore the page state
+        setTimeout(() => {
+          if (window.location.href === originalHref) {
+            document.body.classList.remove('page-leaving');
+          }
+        }, 3000);
+      });
+    });
+  })();
 }
 
 // Contact form functionality

@@ -36,6 +36,45 @@ async function fetchJSONData(url) {
   }
 })();
 
+// Smooth page transitions for CV: fade-in on load, fade-out on navigation
+window.addEventListener('load', () => {
+  document.body.classList.remove('page-leaving');
+  document.body.classList.add('page-loaded');
+  const loadingScreen = document.querySelector('.loading-screen');
+  if (loadingScreen) loadingScreen.style.display = 'none';
+});
+
+// Fallback: ensure loader is hidden even if load is delayed
+setTimeout(() => {
+  const loadingScreen = document.querySelector('.loading-screen');
+  if (loadingScreen) loadingScreen.style.display = 'none';
+}, 3000);
+
+(function setupPageTransitions() {
+  const links = document.querySelectorAll('a[href]');
+  links.forEach((link) => {
+    const href = link.getAttribute('href');
+    if (!href || href.startsWith('#') || href.startsWith('javascript:')) return;
+    link.addEventListener('click', (e) => {
+      if (link.target === '_blank') return; // allow external/new-tab
+      const url = new URL(href, window.location.href);
+      if (url.origin !== window.location.origin) return; // external domain
+      e.preventDefault();
+      const originalHref = window.location.href;
+      document.body.classList.add('page-leaving');
+      setTimeout(() => {
+        window.location.href = url.href;
+      }, 250);
+      // Fallback: if navigation fails, restore the page state
+      setTimeout(() => {
+        if (window.location.href === originalHref) {
+          document.body.classList.remove('page-leaving');
+        }
+      }, 3000);
+    });
+  });
+})();
+
 // Render the timeline using the HTML template
 function renderTimeline(items) {
   const mapSection = document.querySelector('.map.container');
