@@ -367,7 +367,7 @@ body.page-leaving .cv-main {
   width: 100%;
   /*background: rgba(3, 0, 20, 0.8);*/
   /*backdrop-filter: blur(10px);*/
-  z-index: 999;
+  z-index: 1050;
   padding: 0.5rem 0;
   transition: background 0.3s ease;
 }
