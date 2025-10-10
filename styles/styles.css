@@ -199,6 +199,7 @@ html {
   width: 100%;
   height: 100vh;
   z-index: 1001;
+  pointer-events: none;
 }
 
 .blob {
@@ -1139,7 +1140,7 @@ body.page-leaving .cv-main {
 }
 
 .modal.open {
-  z-index: inherit;
+  z-index: 1200;
   opacity: 1;
   visibility: visible;
   transition: opacity 0.3s ease;
@@ -1226,6 +1227,14 @@ body.page-leaving .cv-main {
   border-radius: 0.3rem;
   color: #22d3ee;
   font-size: 0.875rem;
+}
+
+/* Prevent background scroll when modal is open */
+body.modal-open {
+  overflow: hidden;
+}
+html.modal-open {
+  overflow: hidden;
 }
 
 @media (max-width: 480px) {

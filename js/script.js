@@ -339,6 +339,8 @@ function openModal(project) {
     `;
 
   modal.classList.add('open');
+  document.body.classList.add('modal-open');
+  document.documentElement.classList.add('modal-open');
 }
 
 // detect PDF or image
@@ -384,6 +386,8 @@ function openCertificateModal(certificate) {
   }
 
   modal.classList.add('open');
+  document.body.classList.add('modal-open');
+  document.documentElement.classList.add('modal-open');
 }
 
 // Expose functions to global for inline onclick usage
@@ -401,6 +405,12 @@ window.addEventListener('click', (event) => {
 
   if (event.target === certificateModal || event.target.classList.contains('close-modal')) {
     certificateModal.classList.remove('open');
+  }
+
+  // restore background scroll if no modal is opened
+  if (!document.querySelector('.modal.open')) {
+    document.body.classList.remove('modal-open');
+    document.documentElement.classList.remove('modal-open');
   }
 });
 
