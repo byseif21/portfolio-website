@@ -65,9 +65,18 @@
     "id": 7,
     "title": "SMA - Smart Home Automation App",
     "description": "Web app that allows users to control their home devices locally and remotely.",
-    "image": "img/projects/smal.png",
+    "image": "img/projects/sha.png",
     "link": "https://shm-rho.vercel.app",
     "github": "https://github.com/byseif21/SHM",
     "techStack": ["TypeScript", "React", "Express", "Tailwind", "PostgreSQL"]
+  },
+  {
+    "id": 8,
+    "title": "MedLens - Medical AR Glasses System",
+    "description": "MedLens is a medical facial recognition system that provides healthcare professionals with instant access to critical patient information through AR-enabled glasses, reducing medication errors and improving emergency response times.",
+    "image": "img/projects/MedLens.png",
+    "link": "https://medlens.live",
+    "github": "https://github.com/byseif21/Smart-Medical-Glass",
+    "techStack": ["React", "Next.js", "Python", "FastAPI", "Supabase", "OpenCV"]
   }
 ]
