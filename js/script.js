@@ -333,10 +333,25 @@ function openModal(project) {
     .map((tech) => `<span>${tech}</span>`)
     .join('');
   const links = modal.querySelector('.modal-links');
-  links.innerHTML = `
-        <a href="${project.link}" class="btn" target="_blank">Live Demo</a>
-        <a href="${project.github}" class="btn" target="_blank">GitHub</a>
-    `;
+
+  // Live pages Button Logic
+  let liveDemoButton = '';
+  const demoDomains = ['github.io', 'netlify.app', 'vercel.app', 'herokuapp.com'];
+  const isDemo = project.link && demoDomains.some((domain) => project.link.includes(domain));
+  const isInvalid = !project.link || project.link === '#' || project.link.startsWith('javascript:');
+
+  if (!isInvalid) {
+    const buttonText = isDemo ? 'Live Demo' : 'Visit Site';
+    liveDemoButton = `<a href="${project.link}" class="btn" target="_blank">${buttonText}</a>`;
+  }
+
+  // GitHub Button Logic
+  let githubButton = '';
+  if (project.github) {
+    githubButton = `<a href="${project.github}" class="btn" target="_blank">GitHub</a>`;
+  }
+
+  links.innerHTML = `${liveDemoButton}${githubButton}`;
 
   modal.classList.add('open');
   document.body.classList.add('modal-open');
