@@ -4,13 +4,16 @@
   { "name": "JavaScript", "icon": "img/TechStack/javascript.svg" },
   { "name": "TypeScript", "icon": "img/TechStack/typescript.svg" },
   { "name": "ReactJS", "icon": "img/TechStack/reactjs.svg" },
-  { "name": ".NET", "icon": "img/TechStack/Dotnet.svg" },
-  { "name": "C#", "icon": "img/TechStack/Csharp.svg" },
-  { "name": "NodeJS", "icon": "img/TechStack/nodejs.svg" },
-  { "name": "MongoDB", "icon": "img/TechStack/mongodb.svg" },
-  { "name": "SQL", "icon": "img/TechStack/sql.svg" },
   { "name": "Tailwind", "icon": "img/TechStack/tailwind.svg" },
   { "name": "Bootstrap", "icon": "img/TechStack/bootstrap.svg" },
-  { "name": "MUI", "icon": "img/TechStack/MUI.svg" },
-  { "name": "Vite", "icon": "img/TechStack/vite.svg" }
+  { "name": "Vite", "icon": "img/TechStack/vite.svg" },
+  { "name": "NodeJS", "icon": "img/TechStack/nodejs.svg" },
+  { "name": "C#", "icon": "img/TechStack/Csharp.svg" },
+  { "name": ".NET", "icon": "img/TechStack/Dotnet.svg" },
+  { "name": "Python", "icon": "img/TechStack/python.svg" },
+  { "name": "C++", "icon": "img/TechStack/C+.svg" },
+  { "name": "SQL", "icon": "img/TechStack/sql.svg" },
+  { "name": "MongoDB", "icon": "img/TechStack/mongodb.svg" },
+  { "name": "Supabase", "icon": "img/TechStack/supabase-icon.svg" },
+  { "name": "Firebase", "icon": "img/TechStack/firebase.svg" }
 ]

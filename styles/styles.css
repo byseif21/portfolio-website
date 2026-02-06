@@ -694,13 +694,14 @@ body.page-leaving .cv-main {
 }
 
 #about .stat i {
-  font-size: 2rem;
+  font-size: 1.6rem;
   color: #22d3ee;
 }
 
 #about .stat span {
   font-size: 1.25rem;
   color: #94a3b8;
+  margin-left: 10px;
 }
 
 #about .stat:hover {
@@ -882,6 +883,11 @@ body.page-leaving .cv-main {
   font-size: 0.875rem;
   color: #94a3b8;
   padding: 0 1rem 1rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Tabs */
@@ -902,7 +908,8 @@ body.page-leaving .cv-main {
   border-radius: 0.5rem;
   transition:
     background 0.3s ease,
-    color 0.3s ease;
+    color 0.3s ease,
+    transform 0.3s ease;
 }
 
 @media screen and (max-width: 468px) {
@@ -1272,7 +1279,7 @@ html.modal-open {
   }
 
   .modal-content img {
-    max-height: 40vh;
+    min-height: 40vh;
   }
 
   .modal-links {
@@ -1293,18 +1300,27 @@ html.modal-open {
 
   .modal-content img {
     max-height: 30vh;
+    min-height: 300px;
   }
 
   .modal-content h2 {
-    margin: 0.75rem 0;
+    margin: 0.5rem 0;
+    font-size: 1.25rem;
   }
 
   .modal-content p {
     margin-bottom: 0.5rem;
+    font-size: 0.8rem;
+    line-height: 1.4;
   }
 
   .modal-tech-stack {
-    gap: 0.3rem;
+    gap: 0.25rem;
+  }
+
+  .modal-tech-stack span {
+    font-size: 0.7rem;
+    padding: 0.15rem 0.5rem;
   }
 
   .close-modal {
@@ -1315,7 +1331,7 @@ html.modal-open {
 
   .modal-links a {
     display: contents;
-    font-size: 10px;
+    font-size: 0.8rem; /* Adjusted for readability */
     width: 50%;
     max-width: 300px;
     margin: 0 auto;
