@@ -862,7 +862,7 @@ body.page-leaving .cv-main {
   width: 100%;
   height: 300px;
   min-width: unset;
-  object-fit: cover;
+  /*object-fit: cover;*/ /*or maybe fill/inherit*/
   transition: transform 0.3s ease;
 }
 
@@ -1173,7 +1173,6 @@ body.page-leaving .cv-main {
 
 .modal-content img {
   width: 100%;
-  height: 300px;
   object-fit: cover;
   border-radius: 0.5rem;
 }
@@ -1194,6 +1193,7 @@ body.page-leaving .cv-main {
 .modal-links {
   place-self: center;
   display: flex;
+  justify-content: center;
   gap: 1rem;
 }
 
