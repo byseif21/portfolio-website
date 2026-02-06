@@ -33,5 +33,19 @@
     "description": "Certified in Advanced WEB DEVELOPMENT by Udacity.",
     "image": "img/certificates/Udacity Nanodegree Graduation Certificate.png",
     "link": "https://www.udacity.com/certificate/e/51436012-4aec-11ed-bba3-13d109eae405"
+  },
+  {
+    "id": 6,
+    "title": "ITIDA Gigs Freelance Training Certificate",
+    "description": "Certified by ITIDA and eYouth for completing a 3-month freelance training program.",
+    "image": "img/certificates/Itida_cert.jpg",
+    "link": "https://drive.google.com/file/d/1Temhm9O6JOKJ2jXeqtVUGko26uj45Mgz/view?usp=drive_link"
+  },
+  {
+    "id": 7,
+    "title": "Full Stack .NET Web Developer Certificate",
+    "description": "Certified by DEPI for compliting the .NET full stack program.",
+    "image": "img/certificates/DEPI_active_cerit.png",
+    "link": "https://drive.google.com/file/d/1mtq-S-qenqRJTfe1yhZ61j-BA03qDwpj/view"
   }
 ]

@@ -35,7 +35,16 @@
     "techStack": ["HTML5", "CSS", "JavaScript"]
   },
   {
-    "id": 3,
+    "id": 4,
+    "title": "Monkeytype - Typing Speed Test Game",
+    "description": "One of the active contributors in the best fun and interactive typing speed test game that challenges players to improve their typing skills.",
+    "image": "img/projects/mt.jpg",
+    "link": "https://monkeytype.com",
+    "github": "https://github.com/search?q=repo%3Amonkeytypegame%2Fmonkeytype+byseif21&type=pullrequests",
+    "techStack": ["TypeScript", "Express", "SCSS", "Firebase", "MongoDB"]
+  },
+  {
+    "id": 5,
     "title": "StyleZa - Frontend Full Template",
     "description": "A modern, responsive UI template for an online clothing store, featuring a sleek and user-friendly design. It offers a smooth user experience across all devices, making it ideal for stores that want to showcase their products professionally.",
     "image": "img/projects/Styleza.png",
@@ -44,7 +53,7 @@
     "techStack": ["HTML5", "CSS", "JavaScript"]
   },
   {
-    "id": 4,
+    "id": 6,
     "title": "Static Portfolio Website Project",
     "description": "This is my personal portfolio website, showcasing my skills, projects, and experience as a Full Stack Developer.",
     "image": "img/projects/project2.png",
@@ -53,12 +62,12 @@
     "techStack": ["HTML", "CSS", "JavaScript"]
   },
   {
-    "id": 5,
-    "title": "Onklo - Clothing Frontend Project",
-    "description": "A custom, responsive front-end e-commerce template designed and built from scratch.",
-    "image": "img/projects/project1.png",
-    "link": "https://byseif21.github.io/OnKloFrontDD",
-    "github": "https://github.com/byseif21/OnKloFrontDD",
-    "techStack": ["HTML", "CSS", "JavaScript"]
+    "id": 7,
+    "title": "SMA - Smart Home Automation App",
+    "description": "Web app that allows users to control their home devices locally and remotely.",
+    "image": "img/projects/smal.png",
+    "link": "https://shm-rho.vercel.app",
+    "github": "https://github.com/byseif21/SHM",
+    "techStack": ["TypeScript", "React", "Express", "Tailwind", "PostgreSQL"]
   }
 ]
