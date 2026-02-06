@@ -108,7 +108,7 @@
     opacity 0.7s ease,
     transform 0.7s ease;
 }
-.node:nth-child(odd) {
+.node:nth-child(even) {
   direction: rtl;
 }
 .node .card {
