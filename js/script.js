@@ -315,8 +315,8 @@ function renderTechStack(techStackToRender) {
     .map(
       (tech) => `
                 <div class="tech-stack-item">
-                    <img src="${assetUrl(tech.icon)}" alt="${assetUrl(tech.name)}" />
-                    <span>${assetUrl(tech.name)}</span>
+                    <img src="${assetUrl(tech.icon)}" alt="${tech.name}" />
+                    <span>${tech.name}</span>
                 </div>
             `
     )

@@ -45,12 +45,12 @@
   },
   {
     "id": 5,
-    "title": "StyleZa - Frontend Full Template",
-    "description": "A modern, responsive UI template for an online clothing store, featuring a sleek and user-friendly design. It offers a smooth user experience across all devices, making it ideal for stores that want to showcase their products professionally.",
+    "title": "StyleZa - Full-Stack E-Commerce",
+    "description": "Full-featured clothing store built with ASP.NET Core MVC (.NET 8). Includes customer accounts, admin dashboard, and robust product/order management.",
     "image": "img/projects/Styleza.png",
     "link": "https://byseif21.github.io/StylezaFD/",
-    "github": "https://github.com/byseif21/StylezaFD",
-    "techStack": ["HTML5", "CSS", "JavaScript"]
+    "github": "https://github.com/byseif21/DEPI-E-Commerce-.NET-project",
+    "techStack": ["C#", "ASP.NET Core MVC", "Entity Framework Core", "SQL Server"]
   },
   {
     "id": 6,
@@ -76,7 +76,7 @@
     "description": "MedLens is a medical facial recognition system that provides healthcare professionals with instant access to critical patient information through AR-enabled glasses, reducing medication errors and improving emergency response times.",
     "image": "img/projects/MedLens.png",
     "link": "https://medlens.live",
-    "github": "https://github.com/byseif21/Smart-Medical-Glass",
-    "techStack": ["React", "Next.js", "Python", "FastAPI", "Supabase", "OpenCV"]
+    "github": "https://github.com/byseif21/Medlens",
+    "techStack": ["React", "Python", "FastAPI", "Supabase"]
   }
 ]
