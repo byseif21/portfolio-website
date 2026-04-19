@@ -25,114 +25,109 @@ function assetUrl(path) {
   return `${String(path).replace(/^\/+/, '')}`;
 }
 
-// Starting the typing effect (for the welcome screen)
-const words2 = ['www.seifsoliman.com'];
-const dynamicText2 = document.querySelector('.myweblink');
-let wordIndex2 = 0;
-let charIndex2 = 0;
-let isDeleting2 = false;
-const __hasVisitedSession = (() => {
+// Welcome screen management — single source of truth for first vs. return visits
+(function manageWelcomeScreen() {
+  const welcomeScreen = document.getElementById('welcome-screen');
+  const mainContent = document.getElementById('main-content');
+
+  let hasVisited = false;
   try {
-    return sessionStorage.getItem('visited_session') === '1';
-  } catch {
-    return false;
-  }
-})();
+    hasVisited = sessionStorage.getItem('visited_session') === '1';
+    if (!hasVisited) sessionStorage.setItem('visited_session', '1');
+  } catch {}
 
-function typeEffect2() {
-  const currentWord = words2[wordIndex2];
-  const displayedText = currentWord.substring(0, charIndex2);
-  if (dynamicText2) dynamicText2.textContent = displayedText;
-
-  if (!isDeleting2 && charIndex2 < currentWord.length) {
-    charIndex2++;
-    setTimeout(typeEffect2, 120); // Typing speed
-  } else if (isDeleting2 && charIndex2 > 0) {
-    charIndex2--;
-    setTimeout(typeEffect2, charIndex2 === 1 ? 300 : 60); // Deleting speed
-  } else if (!isDeleting2) {
-    setTimeout(() => {
-      isDeleting2 = true;
-      typeEffect2();
-    }, 1500); // Pause before deleting
-  } else {
-    isDeleting2 = false;
-    wordIndex2 = (wordIndex2 + 1) % words2.length;
-    setTimeout(typeEffect2, 300); // Move to the next word
-  }
-}
-
-// Start the typing effect only if first visit in this session
-if (!__hasVisitedSession) {
-  typeEffect2();
-}
-
-// Wait for the welcome screen to be 70% faded (only for first visit)
-if (!__hasVisitedSession) {
-  setTimeout(() => {
-    const welcomeScreen = document.getElementById('welcome-screen');
-    if (welcomeScreen) welcomeScreen.style.display = 'none';
-
-    const mainContent = document.getElementById('main-content');
-    if (mainContent) mainContent.style.display = 'block';
-
-    // Initialize the page
-    if (typeof initializePage === 'function') initializePage();
-  }, 3500); // 70% of 5 seconds = 3.5 seconds
-}
-
-// asset-based loading progress indicator
-(() => {
-  const loadingTextEl = document.querySelector('.loading-text');
-  const images = Array.from(document.images);
-  const total = images.length || 1;
-  let loaded = 0;
-  const update = () => {
-    const pct = Math.round((loaded / total) * 100);
-    if (loadingTextEl) loadingTextEl.textContent = `Loading ${pct}%`;
-  };
-  images.forEach((img) => {
-    if (img.complete && img.naturalWidth) {
-      loaded++;
-      update();
+  function revealContent() {
+    if (welcomeScreen) {
+      welcomeScreen.style.opacity = '0';
+      welcomeScreen.style.pointerEvents = 'none';
+      setTimeout(() => {
+        if (welcomeScreen) welcomeScreen.style.display = 'none';
+        if (mainContent) mainContent.style.display = 'block';
+        if (typeof initializePage === 'function') initializePage();
+      }, 600);
     } else {
-      img.addEventListener(
-        'load',
-        () => {
-          loaded++;
-          update();
-        },
-        { once: true }
-      );
-      img.addEventListener(
-        'error',
-        () => {
-          loaded++;
-          update();
-        },
-        { once: true }
-      );
+      if (mainContent) mainContent.style.display = 'block';
+      if (typeof initializePage === 'function') initializePage();
     }
-  });
-  update();
-})();
+  }
 
-// remove the loading screen after the page loads
-window.addEventListener('load', () => {
-  const loadingScreen = document.querySelector('.loading-screen');
-  const header = document.getElementById('navbar');
-  if (loadingScreen && header) {
-    const h = header.offsetHeight;
-    loadingScreen.style.top = `${h}px`;
-    loadingScreen.style.height = `calc(100vh - ${h}px)`;
+  if (hasVisited) {
+    // Return visit: skip welcome screen entirely
+    if (welcomeScreen) welcomeScreen.style.display = 'none';
+    if (mainContent) mainContent.style.display = 'block';
+    if (typeof initializePage === 'function') initializePage();
+    return;
   }
-  if (loadingScreen) {
-    loadingScreen.style.opacity = '0'; // Fade out effect
-    setTimeout(() => {
-      loadingScreen.style.display = 'none'; // Remove from DOM
-    }, 500); // Wait for fade effect
+
+  // First visit: run typing effect on the welcome screen
+  const words2 = ['www.seifsoliman.com'];
+  const dynamicText2 = document.querySelector('.myweblink');
+  let wordIndex2 = 0,
+    charIndex2 = 0,
+    isDeleting2 = false;
+
+  function typeEffect2() {
+    const currentWord = words2[wordIndex2];
+    if (dynamicText2) dynamicText2.textContent = currentWord.substring(0, charIndex2);
+    if (!isDeleting2 && charIndex2 < currentWord.length) {
+      charIndex2++;
+      setTimeout(typeEffect2, 120);
+    } else if (isDeleting2 && charIndex2 > 0) {
+      charIndex2--;
+      setTimeout(typeEffect2, charIndex2 === 1 ? 300 : 60);
+    } else if (!isDeleting2) {
+      setTimeout(() => {
+        isDeleting2 = true;
+        typeEffect2();
+      }, 1500);
+    } else {
+      isDeleting2 = false;
+      wordIndex2 = (wordIndex2 + 1) % words2.length;
+      setTimeout(typeEffect2, 300);
+    }
   }
-});
+  typeEffect2();
+
+  // Gate 1: all static assets loaded
+  const windowLoadPromise = new Promise((resolve) => {
+    if (document.readyState === 'complete') resolve();
+    else window.addEventListener('load', resolve, { once: true });
+  });
+
+  // Gate 2: minimum display time so the welcome screen is always seen
+  const minTimePromise = new Promise((resolve) => setTimeout(resolve, 3500));
+
+  // Gate 3: pre-fetch JSON data and preload all card images in the background
+  const cardImagesPromise = Promise.all([
+    fetch('/data/projects.json')
+      .then((r) => r.json())
+      .catch(() => []),
+    fetch('/data/certificates.json')
+      .then((r) => r.json())
+      .catch(() => []),
+    fetch('/data/techStack.json')
+      .then((r) => r.json())
+      .catch(() => []),
+  ]).then(([projects, certs, tech]) => {
+    const urls = [
+      ...(projects || []).map((p) => assetUrl(p.image)),
+      ...(certs || []).map((c) => assetUrl(c.image)),
+      ...(tech || []).map((t) => assetUrl(t.icon)),
+    ].filter(Boolean);
+    return Promise.all(
+      urls.map(
+        (url) =>
+          new Promise((resolve) => {
+            const img = new Image();
+            img.onload = img.onerror = resolve;
+            img.src = url;
+          })
+      )
+    );
+  });
+
+  Promise.all([windowLoadPromise, minTimePromise, cardImagesPromise]).then(revealContent);
+})();
 
 // Function to initialize the page
 function initializePage() {
@@ -428,30 +423,6 @@ window.addEventListener('click', (event) => {
     document.documentElement.classList.remove('modal-open');
   }
 });
-
-// Session-based skip for welcome/loading screens
-(function manageSessionScreens() {
-  try {
-    const sessionKey = 'visited_session';
-    const hasVisited = sessionStorage.getItem(sessionKey) === '1';
-    const welcomeScreen = document.getElementById('welcome-screen');
-    const loadingScreen = document.querySelector('.loading-screen');
-    if (hasVisited) {
-      if (welcomeScreen) welcomeScreen.style.display = 'none';
-      if (loadingScreen) loadingScreen.style.display = 'none';
-      const mainContent = document.getElementById('main-content');
-      if (mainContent) mainContent.style.display = 'block';
-      // Initialize immediately if skipping
-      if (typeof initializePage === 'function') {
-        initializePage();
-      }
-    } else {
-      sessionStorage.setItem(sessionKey, '1');
-      // only on first visit
-      if (loadingScreen) loadingScreen.style.display = 'flex';
-    }
-  } catch (e) {}
-})();
 
 // Tabs functionality
 const tabButtons = document.querySelectorAll('.tab-btn');
