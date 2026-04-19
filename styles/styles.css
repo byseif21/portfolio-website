@@ -849,13 +849,10 @@ body.page-leaving .cv-main {
 
 .tab-content {
   position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  max-width: 100%;
   opacity: 0;
-  transform: translateX(100%);
-  transition:
-    transform 0.5s ease-in-out,
-    opacity 0.3s ease-in-out;
   pointer-events: none;
 }
 
@@ -867,71 +864,53 @@ body.page-leaving .cv-main {
 
 .tab-content.active {
   position: relative;
-  opacity: 1 !important;
-  transform: translateX(0) !important;
-  z-index: 2;
+  opacity: 1;
   pointer-events: auto;
+  z-index: 2;
 }
 
-/* Exit animations */
-.tab-content.exit-left {
-  transform: translateX(-100%) !important;
-  opacity: 0 !important;
-  transition:
-    transform 0.5s ease-in-out,
-    opacity 0.3s ease-in-out;
-}
-
-.tab-content.exit-right {
-  transform: translateX(100%) !important;
-  opacity: 0 !important;
-  transition:
-    transform 0.5s ease-in-out,
-    opacity 0.3s ease-in-out;
-}
-
-/* Enter animations */
-.tab-content.enter-left {
-  transform: translateX(-100%);
-  opacity: 0;
-  transition:
-    transform 0.5s ease-in-out,
-    opacity 0.3s ease-in-out;
-}
-
-.tab-content.enter-right {
-  transform: translateX(100%);
-  opacity: 0;
-  transition:
-    transform 0.5s ease-in-out,
-    opacity 0.3s ease-in-out;
-}
-
-/* Ensure transitions happen */
-.tab-content.enter-left.active,
-.tab-content.enter-right.active {
-  transform: translateX(0) !important;
-  opacity: 1 !important;
-}
-
-/* See More Button */
-#portfolio .btn {
+/* Load More / Show Less Button */
+.load-more-btn {
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 2rem 0 0 2rem;
+  padding: 0.65rem 1.75rem;
   background: linear-gradient(45deg, #22d3ee, #0ea5e9);
-  color: white;
-  padding: 0.75rem 2rem;
-  border-radius: 0.5rem;
   border: none;
+  color: white;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
   cursor: pointer;
-  margin-top: 2rem;
-  margin-left: 2rem;
   transition:
     transform 0.3s ease,
     box-shadow 0.3s ease;
 }
 
-#portfolio .btn:hover {
+.load-more-btn:hover {
   transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(34, 211, 238, 0.3);
+  box-shadow: 0 4px 14px rgba(34, 211, 238, 0.35);
+}
+
+.load-more-btn i {
+  transition: transform 0.35s ease;
+}
+
+.load-more-btn.expanded i {
+  transform: rotate(180deg);
+}
+
+@keyframes cardIn {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Certificates Grid */
@@ -961,23 +940,22 @@ body.page-leaving .cv-main {
   max-height: 260px;
   width: 100%;
   height: auto;
-  /* Changed from 300px */
   object-fit: cover;
 }
 
 .certificate-card h3 {
-  margin: 1px auto;
+  padding: 1rem;
+  margin: 0;
   font-size: 1.25rem;
   font-weight: bold;
   color: #e2e8f0;
-  padding: 0.5rem;
 }
 
 .certificate-card p {
-  margin: 1px auto;
+  padding: 0 1rem 1rem;
+  margin: 0;
   font-size: 0.875rem;
   color: #94a3b8;
-  padding: 0.5rem;
 }
 
 /* Tech Stack Grid */

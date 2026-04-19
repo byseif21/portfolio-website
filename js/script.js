@@ -4,28 +4,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function handleScroll() {
     currentScroll = window.pageYOffset;
-
     blobs.forEach((blob, index) => {
       const xOffset = Math.sin(currentScroll / 100 + index * 0.5) * 340;
       const yOffset = Math.cos(currentScroll / 100 + index * 0.5) * 40;
-
       blob.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
     });
-
     requestAnimationFrame(handleScroll);
   }
 
   window.addEventListener('scroll', handleScroll);
 });
 
-// public assets
 function assetUrl(path) {
   if (!path) return '';
-  if (/^(https?:)?\//.test(path)) return path; // already absolute or protocol-relative
-  return `${String(path).replace(/^\/+/, '')}`;
+  if (/^(https?:)?\//.test(path)) return path;
+  return String(path).replace(/^\/+/, '');
 }
 
-// Welcome screen management — single source of truth for first vs. return visits
+// Welcome screen — single source of truth for first vs. return visits
 (function manageWelcomeScreen() {
   const welcomeScreen = document.getElementById('welcome-screen');
   const mainContent = document.getElementById('main-content');
@@ -129,32 +125,21 @@ function assetUrl(path) {
   Promise.all([windowLoadPromise, minTimePromise, cardImagesPromise]).then(revealContent);
 })();
 
-// Function to initialize the page
 function initializePage() {
   if (window.__pageInitialized) return;
   window.__pageInitialized = true;
-  // Intersection Observer for scroll animations
+
   const sections = document.querySelectorAll('.section');
   const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in-view');
-        } else {
-          entry.target.classList.remove('in-view');
-        }
-      });
-    },
+    (entries) =>
+      entries.forEach((entry) => entry.target.classList.toggle('in-view', entry.isIntersecting)),
     { threshold: 0.1 }
   );
   sections.forEach((section) => observer.observe(section));
 
-  // Fetch data from JSON files
   async function fetchJSONData(url) {
     const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
     return response.json();
   }
 
@@ -168,60 +153,117 @@ function initializePage() {
     fetchJSONData('/data/techStack.json'),
   ])
     .then((data) => {
-      // Sort newest first by id
       projects = (data[0] || []).slice().sort((a, b) => (b.id ?? 0) - (a.id ?? 0));
       certificates = (data[1] || []).slice().sort((a, b) => (b.id ?? 0) - (a.id ?? 0));
       techStack = data[2];
 
-      // Save data to local storage
       localStorage.setItem('projects', JSON.stringify(projects));
       localStorage.setItem('certificates', JSON.stringify(certificates));
       localStorage.setItem('techStack', JSON.stringify(techStack));
 
-      // Render projects, certificates, and tech stack
-      renderProjects(projects, 2); // Initial load with 2 projects
+      renderProjects(projects, 2);
       renderCertificates(certificates);
       renderTechStack(techStack);
-
-      // Update counts
       updateCounts(projects.length, certificates.length);
     })
-    .catch((error) => {
-      console.error('Error fetching data:', error);
-    });
+    .catch((error) => console.error('Error fetching data:', error));
 
   function updateCounts(projectsCount, certificatesCount) {
     document.getElementById('projects-count').textContent = `${projectsCount} Projects`;
     document.getElementById('certificates-count').textContent = `${certificatesCount} Certificates`;
-
-    const startYear = 2022;
-    const currentYear = new Date().getFullYear();
-    const yearsOfExperience = currentYear - startYear;
+    const yearsOfExperience = new Date().getFullYear() - 2022;
     document.getElementById('years-experience').textContent =
       `${yearsOfExperience}+ Years Experience`;
   }
-  // Add event listener to the "See More" / "Show Less" button
-  const loadMoreButton = document.querySelector('#projects .btn');
-  loadMoreButton.addEventListener('click', () => {
-    visibleProjects = visibleProjects >= projects.length ? 2 : visibleProjects + 2;
-    renderProjects(projects, visibleProjects);
 
-    // Smoothly update container height after project list changes
-    const tabContainer = document.querySelector('.tab-container');
-    const activeTab = document.querySelector('.tab-content.active');
-    if (tabContainer && activeTab) {
-      const targetHeight = activeTab.offsetHeight;
-      tabContainer.style.height = `${tabContainer.offsetHeight}px`;
-      requestAnimationFrame(() => {
-        tabContainer.style.height = `${targetHeight}px`;
+  function updateLoadMoreBtn(isExpanded) {
+    const btn = document.getElementById('load-more-projects');
+    if (!btn) return;
+    const span = btn.querySelector('span');
+    if (span) span.textContent = isExpanded ? 'Show Less' : 'See All Projects';
+    btn.classList.toggle('expanded', isExpanded);
+  }
+
+  const loadMoreButton = document.getElementById('load-more-projects');
+  if (loadMoreButton) {
+    loadMoreButton.addEventListener('click', () => {
+      const projectsGrid = document.querySelector('#projects .projects-grid');
+      const isExpanded = visibleProjects >= projects.length;
+
+      // Block double-clicks without touching opacity (opacity changes cause a visible flash)
+      loadMoreButton.style.pointerEvents = 'none';
+
+      if (isExpanded) {
+        // Scroll up immediately so the user isn't left stranded below the fold
+        const portfolioSection = document.getElementById('portfolio');
+        if (portfolioSection)
+          portfolioSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        const cards = [...projectsGrid.querySelectorAll('.project-card')];
+        const extras = cards.slice(2);
+        const gridRect = projectsGrid.getBoundingClientRect();
+        const secondCard = cards[1] || cards[0];
+        const twoCardHeight = secondCard.getBoundingClientRect().bottom - gridRect.top;
+        const collapseAmount = projectsGrid.offsetHeight - twoCardHeight;
+
+        extras.forEach((card, i) => {
+          card.style.transition = `opacity 0.45s ease ${i * 70}ms`;
+          card.style.opacity = '0';
+        });
+
+        loadMoreButton.style.transition = 'transform 0.7s cubic-bezier(0.4, 0, 0.2, 1)';
+        loadMoreButton.style.transform = `translateY(-${collapseAmount}px)`;
+
         setTimeout(() => {
-          tabContainer.style.height = '';
-        }, 500);
-      });
-    }
-  });
+          extras.forEach((card) => card.remove());
+          visibleProjects = 2;
+          updateLoadMoreBtn(false);
+          // Layout has now moved the button up by collapseAmount naturally,
+          // so clearing the transform keeps it visually in the same spot
+          loadMoreButton.style.transition = 'none';
+          void loadMoreButton.offsetWidth;
+          loadMoreButton.style.transform = '';
+          requestAnimationFrame(() => {
+            loadMoreButton.style.transition = '';
+          });
+          loadMoreButton.style.pointerEvents = '';
+        }, 750);
+      } else {
+        const prevCount = visibleProjects;
+        visibleProjects = projects.length;
+        renderProjects(projects, visibleProjects);
+        updateLoadMoreBtn(true);
+        const cards = [...projectsGrid.querySelectorAll('.project-card')];
+        const newCards = cards.slice(prevCount);
+        newCards.forEach((card, i) => {
+          const delay = i * 90;
+          card.style.opacity = '0';
+          card.style.transform = 'translateY(24px)';
+          requestAnimationFrame(() => {
+            card.style.transition = `opacity 0.4s ease ${delay}ms, transform 0.4s ease ${delay}ms`;
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+          });
+          // Clear inline styles after animation so CSS hover effects aren't blocked
+          setTimeout(
+            () => {
+              card.style.transition = '';
+              card.style.opacity = '';
+              card.style.transform = '';
+            },
+            400 + delay + 20
+          );
+        });
+        setTimeout(
+          () => {
+            loadMoreButton.style.pointerEvents = '';
+          },
+          400 + (newCards.length - 1) * 90 + 20
+        );
+      }
+    });
+  }
 
-  // Dynamic typing effect for the main text
   const words = [
     'ROBUST .NET APPLICATIONS.',
     'SCALABLE CLOUD SOLUTIONS.',
@@ -240,8 +282,7 @@ function initializePage() {
 
   function typeEffect() {
     const currentWord = words[wordIndex];
-    const displayedText = currentWord.substring(0, charIndex);
-    dynamicText.textContent = displayedText;
+    dynamicText.textContent = currentWord.substring(0, charIndex);
 
     if (!isDeleting && charIndex < currentWord.length) {
       charIndex++;
@@ -265,6 +306,7 @@ function initializePage() {
 }
 
 let visibleProjects = 2;
+
 function renderProjects(projectsToRender, limit) {
   const projectsGrid = document.querySelector('#projects .projects-grid');
   if (!Array.isArray(projectsToRender)) {
@@ -272,53 +314,49 @@ function renderProjects(projectsToRender, limit) {
     if (projectsGrid) projectsGrid.innerHTML = '';
     return;
   }
-
   projectsGrid.innerHTML = projectsToRender
     .slice(0, limit)
     .map(
       (project) => `
-                <div class="project-card" onclick='openModal(${JSON.stringify(project)})'>
-                    <img src="${assetUrl(project.image)}" alt="${project.title}" />
-                    <h3>${project.title}</h3>
-                    <p>${project.description}</p>
-                </div>
-            `
+      <div class="project-card" onclick='openModal(${JSON.stringify(project)})'>
+        <img src="${assetUrl(project.image)}" alt="${project.title}" />
+        <h3>${project.title}</h3>
+        <p>${project.description}</p>
+      </div>
+    `
     )
     .join('');
 }
 
 function renderCertificates(certificatesToRender) {
   const certificatesGrid = document.querySelector('#certificates .certificates-grid');
-
   certificatesGrid.innerHTML = certificatesToRender
     .map(
       (cert) => `
-                <div class="certificate-card" onclick="openCertificateModal(${JSON.stringify(cert).replace(/"/g, '&quot;')})">
-                    <img src="${assetUrl(cert.image)}" alt="${cert.title}" />
-                    <h3 style="padding: 1rem; margin: 0;">${cert.title}</h3>
-                    <p style="padding: 0 1rem 1rem; color: #94a3b8;">${cert.description}</p>
-                </div>
-            `
+      <div class="certificate-card" onclick="openCertificateModal(${JSON.stringify(cert).replace(/"/g, '&quot;')})">
+        <img src="${assetUrl(cert.image)}" alt="${cert.title}" />
+        <h3>${cert.title}</h3>
+        <p>${cert.description}</p>
+      </div>
+    `
     )
     .join('');
 }
 
 function renderTechStack(techStackToRender) {
   const techStackGrid = document.querySelector('#tech-stack .tech-stack-grid');
-
   techStackGrid.innerHTML = techStackToRender
     .map(
       (tech) => `
-                <div class="tech-stack-item">
-                    <img src="${assetUrl(tech.icon)}" alt="${tech.name}" />
-                    <span>${tech.name}</span>
-                </div>
-            `
+      <div class="tech-stack-item">
+        <img src="${assetUrl(tech.icon)}" alt="${tech.name}" />
+        <span>${tech.name}</span>
+      </div>
+    `
     )
     .join('');
 }
 
-// Function to open modal with project details
 function openModal(project) {
   const modal = document.getElementById('project-modal');
   modal.querySelector('.modal-image').src = assetUrl(project.image);
@@ -327,69 +365,44 @@ function openModal(project) {
   modal.querySelector('.modal-tech-stack').innerHTML = project.techStack
     .map((tech) => `<span>${tech}</span>`)
     .join('');
-  const links = modal.querySelector('.modal-links');
 
-  // Live pages Button Logic
-  let liveDemoButton = '';
   const demoDomains = ['github.io', 'netlify.app', 'vercel.app', 'herokuapp.com'];
-  const isDemo = project.link && demoDomains.some((domain) => project.link.includes(domain));
   const isInvalid = !project.link || project.link === '#' || project.link.startsWith('javascript:');
+  const isDemo = project.link && demoDomains.some((d) => project.link.includes(d));
 
-  if (!isInvalid) {
-    const buttonText = isDemo ? 'Live Demo' : 'Visit Site';
-    liveDemoButton = `<a href="${project.link}" class="btn" target="_blank">${buttonText}</a>`;
-  }
+  const liveDemoButton = isInvalid
+    ? ''
+    : `<a href="${project.link}" class="btn" target="_blank">${isDemo ? 'Live Demo' : 'Visit Site'}</a>`;
+  const githubButton = project.github
+    ? `<a href="${project.github}" class="btn" target="_blank">GitHub</a>`
+    : '';
 
-  // GitHub Button Logic
-  let githubButton = '';
-  if (project.github) {
-    githubButton = `<a href="${project.github}" class="btn" target="_blank">GitHub</a>`;
-  }
-
-  links.innerHTML = `${liveDemoButton}${githubButton}`;
-
+  modal.querySelector('.modal-links').innerHTML = `${liveDemoButton}${githubButton}`;
   modal.classList.add('open');
   document.body.classList.add('modal-open');
   document.documentElement.classList.add('modal-open');
 }
 
-// detect PDF or image
 function getFileType(url) {
   if (!url) return 'unknown';
-  const extension = url.split('.').pop().toLowerCase();
-  if (['pdf'].includes(extension)) return 'pdf';
-  if (['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg'].includes(extension)) return 'image';
-  // check if it's a Google Drive link
-  if (url.includes('drive.google.com')) {
-    // For Google Drive links, we'll treat them as PDFs by default
-    // but we could also check the file ID and make an API call if needed
-    return 'pdf';
-  }
-  return 'image'; // Default to image for local files
+  const ext = url.split('.').pop().toLowerCase();
+  if (ext === 'pdf' || url.includes('drive.google.com')) return 'pdf';
+  return 'image';
 }
 
-// open modal
 function openCertificateModal(certificate) {
   const modal = document.getElementById('certificate-modal');
   const imageElement = modal.querySelector('.certificate-image');
   const pdfElement = modal.querySelector('.certificate-pdf');
 
-  // "View Original" link
-  const links = modal.querySelector('.modal-links');
-  links.innerHTML = `
-    <a href="${certificate.link}" class="btn" target="_blank">View Original</a>
-  `;
+  modal.querySelector('.modal-links').innerHTML =
+    `<a href="${certificate.link}" class="btn" target="_blank">View Original</a>`;
 
-  // file type
-  const fileType = getFileType(certificate.image);
-
-  if (fileType === 'pdf') {
-    // Show PDF iframe, hide image
+  if (getFileType(certificate.image) === 'pdf') {
     imageElement.style.display = 'none';
     pdfElement.style.display = 'block';
     pdfElement.src = assetUrl(certificate.image);
   } else {
-    // Show image, hide PDF iframe
     pdfElement.style.display = 'none';
     imageElement.style.display = 'block';
     imageElement.src = assetUrl(certificate.image);
@@ -400,11 +413,10 @@ function openCertificateModal(certificate) {
   document.documentElement.classList.add('modal-open');
 }
 
-// Expose functions to global for inline onclick usage
+// Expose to global scope for inline onclick handlers in rendered HTML
 window.openModal = openModal;
 window.openCertificateModal = openCertificateModal;
 
-// Close modal when clicking outside or on the close button
 window.addEventListener('click', (event) => {
   const projectModal = document.getElementById('project-modal');
   const certificateModal = document.getElementById('certificate-modal');
@@ -412,19 +424,15 @@ window.addEventListener('click', (event) => {
   if (event.target === projectModal || event.target.classList.contains('close-modal')) {
     projectModal.classList.remove('open');
   }
-
   if (event.target === certificateModal || event.target.classList.contains('close-modal')) {
     certificateModal.classList.remove('open');
   }
-
-  // restore background scroll if no modal is opened
   if (!document.querySelector('.modal.open')) {
     document.body.classList.remove('modal-open');
     document.documentElement.classList.remove('modal-open');
   }
 });
 
-// Tabs functionality
 const tabButtons = document.querySelectorAll('.tab-btn');
 const tabContents = document.querySelectorAll('.tab-content');
 const tabContainerEl = document.querySelector('.tab-container');
@@ -434,80 +442,76 @@ let isAnimatingTabs = false;
 
 function switchTab(newTabIndex) {
   if (isAnimatingTabs || newTabIndex === currentTabIndex) return;
+
   const newButton = tabButtons[newTabIndex];
   const newTabId = newButton.getAttribute('data-tab');
   const newTab = document.getElementById(newTabId);
   const currentTab = document.querySelector('.tab-content.active');
   if (!newTab || !currentTab) return;
 
-  // Update button states
+  // Higher index = going right → current exits left, new enters from right
+  const goingRight = newTabIndex > currentTabIndex;
+  const exitX = goingRight ? '-100%' : '100%';
+  const enterX = goingRight ? '100%' : '-100%';
+  const DURATION = 380;
+  const transition = `transform ${DURATION}ms cubic-bezier(0.4, 0, 0.2, 1)`;
+
   tabButtons.forEach((b) => b.classList.remove('active'));
   newButton.classList.add('active');
-
-  // Height management
-  const startHeight = currentTab.offsetHeight;
-  if (tabContainerEl) {
-    const activeTab = document.querySelector('.tab-content.active');
-    if (activeTab) {
-      tabContainerEl.style.height = `${activeTab.offsetHeight}px`;
-      requestAnimationFrame(() => {
-        tabContainerEl.style.height = '';
-      });
-    }
-  }
-
-  // Direction based on index (restore original mapping)
-  const goingRight = newTabIndex > currentTabIndex;
-  const exitDirection = goingRight ? 'left' : 'right';
-  const enterDirection = goingRight ? 'right' : 'left';
-
-  // cleanup
-  tabContents.forEach((tab) => {
-    if (tab !== currentTab && tab !== newTab) {
-      tab.classList.remove('active', 'exit-left', 'exit-right', 'enter-left', 'enter-right');
-      tab.style.transform = '';
-      tab.style.opacity = '';
-    }
-  });
-
-  // Animate out current tab
-  currentTab.classList.remove('active');
-  currentTab.classList.add(`exit-${exitDirection}`);
-
-  // new tab
-  newTab.classList.remove('exit-left', 'exit-right', 'enter-left', 'enter-right');
-  newTab.style.transform = enterDirection === 'right' ? 'translateX(100%)' : 'translateX(-100%)';
-  newTab.style.opacity = '0';
-
   isAnimatingTabs = true;
 
+  // Lock the container height so it doesn't collapse while both tabs are absolute
+  if (tabContainerEl) tabContainerEl.style.height = `${currentTab.offsetHeight}px`;
+
+  // Lock the current tab's visible state inline BEFORE removing .active —
+  // otherwise .tab-content { opacity: 0 } would snap it invisible immediately.
+  currentTab.style.opacity = '1';
+  currentTab.style.transform = 'translateX(0)';
+  currentTab.style.position = 'absolute';
+  currentTab.style.top = '0';
+  currentTab.style.left = '0';
+  currentTab.style.width = '100%';
+  currentTab.classList.remove('active');
+
+  // Snap new tab off-screen, fully visible, no transition yet
+  newTab.style.transition = 'none';
+  newTab.style.transform = `translateX(${enterX})`;
+  newTab.style.opacity = '1';
+  newTab.style.position = 'absolute';
+  newTab.style.top = '0';
+  newTab.style.left = '0';
+  newTab.style.width = '100%';
+  newTab.style.pointerEvents = 'none';
+
+  // Force browser to paint the off-screen start position before animating
+  void newTab.offsetWidth;
+
+  currentTab.style.transition = transition;
+  newTab.style.transition = transition;
+  currentTab.style.transform = `translateX(${exitX})`;
+  newTab.style.transform = 'translateX(0)';
+
   setTimeout(() => {
-    newTab.classList.add(`enter-${enterDirection}`);
+    ['transition', 'transform', 'opacity', 'position', 'top', 'left', 'width'].forEach((p) => {
+      currentTab.style[p] = '';
+    });
+    [
+      'transition',
+      'transform',
+      'opacity',
+      'position',
+      'top',
+      'left',
+      'width',
+      'pointerEvents',
+    ].forEach((p) => {
+      newTab.style[p] = '';
+    });
     newTab.classList.add('active');
-
-    // Animate container height to fit new tab
-    if (tabContainerEl) {
-      const targetHeight = newTab.offsetHeight;
-      requestAnimationFrame(() => {
-        tabContainerEl.style.height = `${targetHeight}px`;
-      });
-    }
-  }, 20);
-
-  // Cleanup
-  setTimeout(() => {
-    newTab.classList.remove(`enter-${enterDirection}`);
-    currentTab.classList.remove(`exit-${exitDirection}`);
-    currentTab.style.transform = '';
-    currentTab.style.opacity = '';
-    newTab.style.transform = '';
-    newTab.style.opacity = '';
-    if (tabContainerEl) {
-      tabContainerEl.style.height = '';
-    }
+    if (tabContainerEl) tabContainerEl.style.height = '';
     currentTabIndex = newTabIndex;
     isAnimatingTabs = false;
-  }, 550);
+  }, DURATION + 60);
 }
 
 if (tabButtons.length) {
@@ -515,39 +519,33 @@ if (tabButtons.length) {
     button.addEventListener('click', () => switchTab(index));
   });
 
-  // Navbar background based on scroll
   const navbar = document.getElementById('navbar');
   function updateNavbarBg() {
     if (!navbar) return;
-    if (window.scrollY <= 0) {
-      navbar.classList.remove('scrolled');
-    } else {
-      navbar.classList.add('scrolled');
-    }
+    navbar.classList.toggle('scrolled', window.scrollY > 0);
   }
   window.addEventListener('scroll', updateNavbarBg, { passive: true });
   updateNavbarBg();
 
-  // Smooth page transitions (fade-out on cross-page nav)
+  // Smooth page transitions on cross-page navigation
   (function setupPageTransitions() {
     document.body.classList.remove('page-leaving');
     document.body.classList.add('page-loaded');
 
-    const links = document.querySelectorAll('a[href]');
-    links.forEach((link) => {
+    document.querySelectorAll('a[href]').forEach((link) => {
       const href = link.getAttribute('href');
       if (!href || href.startsWith('#') || href.startsWith('javascript:')) return;
       link.addEventListener('click', (e) => {
-        if (link.target === '_blank') return; // allow external/new-tab
+        if (link.target === '_blank') return;
         const url = new URL(href, window.location.href);
-        if (url.origin !== window.location.origin) return; // external domain
+        if (url.origin !== window.location.origin) return;
         e.preventDefault();
         const originalHref = window.location.href;
         document.body.classList.add('page-leaving');
         setTimeout(() => {
           window.location.href = url.href;
         }, 250);
-        // Fallback: if navigation fails, restore the page state
+        // Fallback: restore state if navigation fails
         setTimeout(() => {
           if (window.location.href === originalHref) {
             document.body.classList.remove('page-leaving');
@@ -558,45 +556,38 @@ if (tabButtons.length) {
   })();
 }
 
-// Contact form functionality
-document.addEventListener('DOMContentLoaded', function () {
+// Contact form
+document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('contact-form');
   const formStatus = document.getElementById('form-status');
 
   async function handleSubmit(event) {
-    event.preventDefault(); // Prevent page reload
-
-    let formData = new FormData(form);
-
+    event.preventDefault();
+    const formData = new FormData(form);
     try {
-      let response = await fetch('/', {
-        method: 'POST',
-        body: formData,
-      });
-
-      if (response.ok) {
-        typeEffect('Thank you! Your message has been sent.', 'success');
-        form.reset();
-      } else {
-        typeEffect('Oops! Something went wrong. Please try again.', 'error');
-      }
-    } catch (error) {
-      typeEffect('Network error. Please check your connection.', 'error');
+      const response = await fetch('/', { method: 'POST', body: formData });
+      typeFormStatus(
+        response.ok
+          ? 'Thank you! Your message has been sent.'
+          : 'Oops! Something went wrong. Please try again.',
+        response.ok ? 'success' : 'error'
+      );
+      if (response.ok) form.reset();
+    } catch {
+      typeFormStatus('Network error. Please check your connection.', 'error');
     }
   }
 
   if (form) form.addEventListener('submit', handleSubmit);
 
-  function typeEffect(message, statusClass) {
+  function typeFormStatus(message, statusClass) {
     formStatus.textContent = '';
     formStatus.className = statusClass;
-
-    let charIndex = 0;
+    let i = 0;
     function type() {
-      if (charIndex < message.length) {
-        formStatus.textContent += message.charAt(charIndex);
-        charIndex++;
-        setTimeout(type, 80); // Typing speed
+      if (i < message.length) {
+        formStatus.textContent += message.charAt(i++);
+        setTimeout(type, 80);
       }
     }
     type();
