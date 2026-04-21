@@ -3,18 +3,42 @@
     "id": 1,
     "title": "Movie Rating Website Platform",
     "description": "An advanced, full-featured movie rating and review platform built with .NET MVC.",
+    "longDescription": "A comprehensive movie rating and review web platform built with ASP.NET MVC, designed to give users a complete cinema discovery experience. Users can search and browse movies, submit detailed reviews with star ratings, and build personal watchlists. The platform includes a full admin panel for content moderation and movie management, along with role-based access control to separate standard users from moderators and admins.",
+    "features": [
+      "User authentication with role-based access control",
+      "Movie search, filtering, and detailed info pages",
+      "Star rating system with written reviews",
+      "Personal watchlists and review history",
+      "Admin dashboard for content management"
+    ],
     "image": "img/projects/project4.jpg",
+    "screenshots": [],
     "link": "javascript:void(0);",
     "github": "https://github.com/byseif21/eRmovie",
-    "techStack": ["C#", "ASP.NET MVC", "Bootstrap", "Entity Framework", "SQL Server"]
+    "techStack": ["C#", "ASP.NET MVC", "Bootstrap", "Entity Framework", "SQL Server"],
+    "year": 2023,
+    "status": "Private",
+    "role": "Full-Stack Developer",
+    "type": "Web Application",
+    "duration": "~6 weeks",
+    "team": "Solo"
   },
   {
     "id": 2,
     "title": "OnKlo - Full-Stack E-Commerce Platform",
     "description": "The full MVC version of the Clothing Frontend Project, now a dynamic and scalable e-commerce platform.",
+    "longDescription": "OnKlo is a full-featured e-commerce platform for a clothing brand, evolved from a static frontend template into a robust ASP.NET MVC application. It supports the complete shopping lifecycle — browsing products by category, adding items to cart, checkout with order tracking, and user account management. The admin panel allows full product and inventory control, order management, and customer oversight.",
+    "features": [
+      "Product catalog with category filtering and search",
+      "Shopping cart and checkout flow",
+      "User accounts with order history",
+      "Admin panel for product and order management",
+      "Responsive design across all devices"
+    ],
     "image": "img/projects/project1.png",
+    "screenshots": [],
     "link": "https://byseif21.github.io/OnKloFrontDD",
-    "github": "https://github.com/byseif21/OnKlo",
+    "github": "",
     "techStack": [
       "C#",
       "ASP.NET MVC",
@@ -23,60 +47,155 @@
       "JavaScript",
       "Entity Framework",
       "SQL Server"
-    ]
+    ],
+    "year": 2022,
+    "status": "Live",
+    "role": "Full-Stack Developer",
+    "type": "E-Commerce Platform",
+    "duration": "~8 months",
+    "team": "Solo"
   },
   {
     "id": 3,
     "title": "Mr. Deli - Restaurant Website",
     "description": "A modern and responsive restaurant website designed for Mr. Deli, featuring an elegant UI, interactive menu, and seamless user experience across devices.",
+    "longDescription": "A professional restaurant website built for Mr. Deli. The site features a carefully crafted UI with a warm aesthetic that reflects the brand identity. Visitors can explore the full menu with categories, learn about the restaurant, and find location and contact information. Built with performance and mobile responsiveness as core priorities, the site delivers a smooth experience on every device.",
+    "features": [
+      "Interactive menu with category navigation",
+      "Fully responsive across all screen sizes",
+      "Brand-consistent design and color palette",
+      "Location and contact information integration",
+      "Fast-loading, optimized assets"
+    ],
     "image": "img/projects/mrdeli.png",
-    "link": "https://www.mr-deli.com",
+    "screenshots": [],
+    "link": "",
     "github": "",
-    "techStack": ["HTML5", "CSS", "JavaScript"]
+    "techStack": ["HTML5", "CSS3", "JavaScript (ES6)"],
+    "year": 2023,
+    "status": "Archived",
+    "role": "Frontend Developer",
+    "type": "Client Website",
+    "duration": "~1 week",
+    "team": "Solo"
   },
   {
     "id": 4,
     "title": "Monkeytype - Typing Speed Test Game",
     "description": "One of the active contributors in the best fun and interactive typing speed test game that challenges players to improve their typing skills.",
+    "longDescription": "Monkeytype is one of the most popular open-source typing speed test applications on the internet, with thousands of active daily users. As a contributor, I submitted pull requests that were reviewed and merged into the main codebase, improving UI components and user-facing features. Contributing to a large-scale open source project with a rigorous review process was a valuable experience in professional collaboration and code quality standards.",
+    "features": [
+      "Contributed merged pull requests to the main codebase",
+      "Improved UI components and user-facing features",
+      "Worked within a rigorous open-source review process",
+      "Collaborated with an international team of developers"
+    ],
     "image": "img/projects/mt.jpg",
+    "screenshots": [],
     "link": "https://monkeytype.com",
     "github": "https://github.com/search?q=repo%3Amonkeytypegame%2Fmonkeytype+byseif21&type=pullrequests",
-    "techStack": ["TypeScript", "Express", "SCSS", "Firebase", "MongoDB"]
+    "techStack": ["TypeScript", "Express", "SCSS", "Firebase", "MongoDB"],
+    "year": 2025,
+    "status": "Open Source",
+    "role": "Open Source Contributor",
+    "type": "Open Source Contribution",
+    "duration": "Ongoing",
+    "team": "Global Community"
   },
   {
     "id": 5,
     "title": "StyleZa - Full-Stack E-Commerce",
     "description": "Full-featured clothing store built with ASP.NET Core MVC (.NET 8). Includes customer accounts, admin dashboard, and robust product/order management.",
+    "longDescription": "StyleZa is a full-stack clothing e-commerce platform built with ASP.NET Core MVC targeting .NET 8. The project was developed as part of a professional training program and demonstrates production-grade patterns including clean architecture, identity-based authentication, and Entity Framework Core for data access. It features a customer-facing storefront with a modern UI and a fully-functional admin dashboard for managing products, categories, and orders.",
+    "features": [
+      "ASP.NET Core Identity for authentication and authorization",
+      "Admin dashboard with full CRUD for products and orders",
+      "Shopping cart with session persistence",
+      "Category and product filtering",
+      "Responsive storefront with clean UI"
+    ],
     "image": "img/projects/Styleza.png",
+    "screenshots": [],
     "link": "https://byseif21.github.io/StylezaFD/",
     "github": "https://github.com/byseif21/DEPI-E-Commerce-.NET-project",
-    "techStack": ["C#", "ASP.NET Core MVC", "Entity Framework Core", "SQL Server"]
+    "techStack": ["C#", "ASP.NET Core MVC", "Entity Framework Core", "SQL Server"],
+    "year": 2025,
+    "status": "Live",
+    "role": "Full-Stack Developer",
+    "type": "E-Commerce Platform",
+    "duration": "~12 months",
+    "team": "Team of 5"
   },
   {
     "id": 6,
-    "title": "Static Portfolio Website Project",
-    "description": "This is my personal portfolio website, showcasing my skills, projects, and experience as a Full Stack Developer.",
+    "title": "Modern Interactive Portfolio",
+    "description": "The very website you are currently exploring—a high-performance, aesthetically driven personal portfolio built with Vite and modern web standards.",
+    "longDescription": "This is the definitive version of my professional portfolio, engineered for speed, responsiveness, and a premium user experience. Moving beyond static foundations, this Vite-powered site features a modular architecture, glassmorphic design elements, and fluid animations. It serves as a living exhibition of my frontend mastery, showcasing my projects and technical journey through a modern, interactive interface.",
+    "features": [
+      "High-performance build powered by Vite",
+      "Dynamic project filtering and detailed showcases",
+      "Premium UI with glassmorphism and smooth micro-animations",
+      "Fully responsive and SEO-optimized architecture"
+    ],
     "image": "img/projects/project2.png",
+    "screenshots": [],
     "link": "#",
     "github": "https://github.com/byseif21/portfolio-website",
-    "techStack": ["HTML", "CSS", "JavaScript"]
+    "techStack": ["Vite", "JavaScript", "HTML5", "CSS3", "PostCSS"],
+    "year": 2025,
+    "status": "Live",
+    "role": "Solo Developer",
+    "type": "Personal Portfolio",
+    "duration": "Ongoing",
+    "team": "Solo"
   },
   {
     "id": 7,
     "title": "SMA - Smart Home Automation App",
     "description": "Web app that allows users to control their home devices locally and remotely.",
+    "longDescription": "SMA is a smart home automation web application that gives users real-time control over connected home devices from any browser. The frontend is built with React and Tailwind CSS for a fast, responsive UI, while the backend uses Express with PostgreSQL to manage device state and user data. Devices can be controlled both on the local network and remotely, with instant status feedback through the UI.",
+    "features": [
+      "Real-time device control via web interface",
+      "Local and remote access support",
+      "React frontend with Tailwind CSS",
+      "Express REST API backend",
+      "PostgreSQL for persistent device state"
+    ],
     "image": "img/projects/sha.png",
+    "screenshots": [],
     "link": "https://shm-rho.vercel.app",
-    "github": "https://github.com/byseif21/SHM",
-    "techStack": ["TypeScript", "React", "Express", "Tailwind", "PostgreSQL"]
+    "github": "",
+    "techStack": ["TypeScript", "React", "Express", "Tailwind", "PostgreSQL"],
+    "year": 2025,
+    "status": "Live",
+    "role": "Full-Stack Developer",
+    "type": "Web Application",
+    "duration": "~15 months",
+    "team": "Solo"
   },
   {
     "id": 8,
     "title": "MedLens - Medical AR Glasses System",
     "description": "MedLens is a medical facial recognition system that provides healthcare professionals with instant access to critical patient information through AR-enabled glasses, reducing medication errors and improving emergency response times.",
+    "longDescription": "MedLens is a healthcare innovation project that bridges augmented reality and medical data management. The system uses facial recognition to identify patients in real time and overlays critical health information — allergies, medication history, emergency contacts — directly into AR glasses worn by healthcare staff. The web platform manages patient profiles, recognition events, and medical records, with a Python/FastAPI backend handling the AI inference pipeline and Supabase for secure data storage.",
+    "features": [
+      "Real-time facial recognition for patient identification",
+      "AR overlay of critical patient health data",
+      "Patient profile and medical record management",
+      "Python/FastAPI inference pipeline for face recognition",
+      "Secure medical data storage with Supabase",
+      "Designed to reduce medication errors in clinical settings"
+    ],
     "image": "img/projects/MedLens.png",
+    "screenshots": [],
     "link": "https://medlens.live",
-    "github": "https://github.com/byseif21/Medlens",
-    "techStack": ["React", "Python", "FastAPI", "Supabase"]
+    "github": "",
+    "techStack": ["React", "Python", "FastAPI", "Supabase"],
+    "year": 2025,
+    "status": "Live",
+    "role": "Full-Stack Developer",
+    "type": "AI / Healthcare System",
+    "duration": "~9 months",
+    "team": "Team of 3"
   }
 ]

@@ -9,6 +9,8 @@ const rootRewritePlugin = {
         req.url = '/html/index.html';
       } else if (req.url === '/cv' || req.url === '/cv.html') {
         req.url = '/html/cv.html';
+      } else if (req.url.startsWith('/project')) {
+        req.url = '/html/project.html' + req.url.slice('/project'.length);
       }
       next();
     });
@@ -25,6 +27,7 @@ export default defineConfig({
       input: {
         index: resolve(__dirname, 'html/index.html'),
         cv: resolve(__dirname, 'html/cv.html'),
+        project: resolve(__dirname, 'html/project.html'),
       },
     },
   },

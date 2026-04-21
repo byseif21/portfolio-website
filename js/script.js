@@ -154,6 +154,7 @@ function initializePage() {
   ])
     .then((data) => {
       projects = (data[0] || []).slice().sort((a, b) => (b.id ?? 0) - (a.id ?? 0));
+      window._allProjects = projects;
       certificates = (data[1] || []).slice().sort((a, b) => (b.id ?? 0) - (a.id ?? 0));
       techStack = data[2];
 
@@ -316,15 +317,20 @@ function renderProjects(projectsToRender, limit) {
   }
   projectsGrid.innerHTML = projectsToRender
     .slice(0, limit)
-    .map(
-      (project) => `
-      <div class="project-card" onclick='openModal(${JSON.stringify(project)})'>
-        <img src="${assetUrl(project.image)}" alt="${project.title}" />
-        <h3>${project.title}</h3>
-        <p>${project.description}</p>
-      </div>
-    `
-    )
+    .map((project) => {
+      const hasLink =
+        project.link && project.link !== '#' && !project.link.startsWith('javascript:');
+      return `
+        <div class="project-card" data-project-id="${project.id}">
+          <img src="${assetUrl(project.image)}" alt="${project.title}" />
+          <h3>${project.title}</h3>
+          <p>${project.description}</p>
+          <div class="card-footer">
+            <span class="card-details-btn"><i class="fas fa-expand-alt"></i> View Details</span>
+            ${hasLink ? `<a href="${project.link}" class="card-visit-btn" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">Visit Site <i class="fas fa-external-link-alt"></i></a>` : ''}
+          </div>
+        </div>`;
+    })
     .join('');
 }
 
@@ -358,30 +364,20 @@ function renderTechStack(techStackToRender) {
 }
 
 function openModal(project) {
-  const modal = document.getElementById('project-modal');
-  modal.querySelector('.modal-image').src = assetUrl(project.image);
-  modal.querySelector('.modal-title').textContent = project.title;
-  modal.querySelector('.modal-description').textContent = project.description;
-  modal.querySelector('.modal-tech-stack').innerHTML = project.techStack
-    .map((tech) => `<span>${tech}</span>`)
-    .join('');
-
-  const demoDomains = ['github.io', 'netlify.app', 'vercel.app', 'herokuapp.com'];
-  const isInvalid = !project.link || project.link === '#' || project.link.startsWith('javascript:');
-  const isDemo = project.link && demoDomains.some((d) => project.link.includes(d));
-
-  const liveDemoButton = isInvalid
-    ? ''
-    : `<a href="${project.link}" class="btn" target="_blank">${isDemo ? 'Live Demo' : 'Visit Site'}</a>`;
-  const githubButton = project.github
-    ? `<a href="${project.github}" class="btn" target="_blank">GitHub</a>`
-    : '';
-
-  modal.querySelector('.modal-links').innerHTML = `${liveDemoButton}${githubButton}`;
-  modal.classList.add('open');
-  document.body.classList.add('modal-open');
-  document.documentElement.classList.add('modal-open');
+  document.body.classList.add('page-leaving');
+  setTimeout(() => {
+    window.location.href = `/project?id=${project.id}`;
+  }, 250);
 }
+
+document.addEventListener('click', (e) => {
+  const card = e.target.closest('[data-project-id]');
+  if (!card) return;
+  if (e.target.closest('.card-visit-btn')) return;
+  const id = Number(card.dataset.projectId);
+  const project = (window._allProjects || []).find((p) => p.id === id);
+  if (project) openModal(project);
+});
 
 function getFileType(url) {
   if (!url) return 'unknown';
@@ -413,21 +409,12 @@ function openCertificateModal(certificate) {
   document.documentElement.classList.add('modal-open');
 }
 
-// Expose to global scope for inline onclick handlers in rendered HTML
-window.openModal = openModal;
 window.openCertificateModal = openCertificateModal;
 
 window.addEventListener('click', (event) => {
-  const projectModal = document.getElementById('project-modal');
   const certificateModal = document.getElementById('certificate-modal');
-
-  if (event.target === projectModal || event.target.classList.contains('close-modal')) {
-    projectModal.classList.remove('open');
-  }
   if (event.target === certificateModal || event.target.classList.contains('close-modal')) {
     certificateModal.classList.remove('open');
-  }
-  if (!document.querySelector('.modal.open')) {
     document.body.classList.remove('modal-open');
     document.documentElement.classList.remove('modal-open');
   }

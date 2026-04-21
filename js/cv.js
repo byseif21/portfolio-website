@@ -1,3 +1,7 @@
+import { initSiteHeader } from './project.js';
+
+initSiteHeader();
+
 // Intersection observer for animating timeline nodes
 const io = new IntersectionObserver(
   (entries) => {

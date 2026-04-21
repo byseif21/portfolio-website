@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project — Seif Soliman Mohammed</title>
+    <link rel="stylesheet" href="/styles/styles.css" />
+    <link rel="stylesheet" href="/styles/project.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link rel="icon" href="/img/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+  </head>
+  <body>
+    <div class="blob-container">
+      <div class="blob blob1"></div>
+      <div class="blob blob2"></div>
+      <div class="blob blob3"></div>
+      <div class="blob blob4"></div>
+    </div>
+    <div class="grid-overlay"></div>
+
+    <header class="site-header">
+      <div class="container">
+        <a class="logo" href="/">21</a>
+        <nav class="project-nav">
+          <a href="/#portfolio" class="nav-back-link">
+            <i class="fas fa-arrow-left"></i> Portfolio
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="project-main" id="project-main">
+      <!-- Not found state -->
+      <div class="project-not-found" id="project-not-found" style="display: none">
+        <i class="fas fa-exclamation-circle"></i>
+        <h2>Project not found</h2>
+        <a href="/#portfolio" class="btn-ghost">← Back to Portfolio</a>
+      </div>
+
+      <!-- Project detail -->
+      <article class="project-detail" id="project-detail" style="display: none">
+        <!-- Hero -->
+        <div class="project-hero">
+          <img src="" alt="" class="project-hero-img" id="project-img" />
+          <div class="project-hero-overlay"></div>
+        </div>
+
+        <!-- Main content -->
+        <div class="project-content container">
+          <!-- Breadcrumb -->
+          <div class="project-breadcrumb">
+            <a href="/#portfolio">Projects</a>
+            <span class="breadcrumb-sep">/</span>
+            <span id="project-breadcrumb-title"></span>
+          </div>
+
+          <!-- Top meta row: status, year, role -->
+          <div class="project-meta-row" id="project-meta-row"></div>
+
+          <!-- Title -->
+          <h1 class="project-title" id="project-title"></h1>
+
+          <!-- Tech stack chips -->
+          <div class="project-tech-stack" id="project-tech-stack"></div>
+
+          <!-- Two-column layout -->
+          <div class="project-columns">
+            <!-- Left: description + features -->
+            <div class="project-left">
+              <div class="project-section" id="project-desc-section">
+                <h2 class="section-label">About the Project</h2>
+                <p class="project-description" id="project-description"></p>
+              </div>
+
+              <div class="project-section" id="project-features-section" style="display: none">
+                <h2 class="section-label">Key Features</h2>
+                <ul class="project-features" id="project-features"></ul>
+              </div>
+            </div>
+
+            <!-- Right: info card + actions -->
+            <aside class="project-right">
+              <div class="project-info-card" id="project-info-card"></div>
+              <div class="project-actions" id="project-actions"></div>
+            </aside>
+          </div>
+
+          <!-- Screenshots gallery (if present) -->
+          <div
+            class="project-section project-gallery-section"
+            id="project-gallery-section"
+            style="display: none"
+          >
+            <h2 class="section-label">Screenshots</h2>
+            <div class="project-gallery" id="project-gallery"></div>
+          </div>
+        </div>
+      </article>
+    </main>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+      <button class="lightbox-close" id="lightbox-close"><i class="fas fa-times"></i></button>
+      <button class="lightbox-prev" id="lightbox-prev"><i class="fas fa-chevron-left"></i></button>
+      <img src="" alt="" class="lightbox-img" id="lightbox-img" />
+      <button class="lightbox-next" id="lightbox-next"><i class="fas fa-chevron-right"></i></button>
+    </div>
+
+    <script type="module" src="/js/project.js"></script>
+  </body>
+</html>
