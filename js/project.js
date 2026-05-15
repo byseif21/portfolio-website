@@ -38,7 +38,8 @@ async function loadProject() {
 
   if (!projects) {
     try {
-      projects = await fetch('/data/projects.json').then((r) => r.json());
+      const raw = await fetch('/data/projects.json').then((r) => r.json());
+      projects = Array.isArray(raw) ? raw : raw?.projects || [];
     } catch {
       showNotFound();
       return;

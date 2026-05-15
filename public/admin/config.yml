@@ -1,0 +1,58 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: public/img/projects
+public_folder: /img/projects
+
+publish_mode: simple
+site_url: https://seifsoliman.netlify.app
+display_url: https://seifsoliman.netlify.app
+logo_url: /img/Computer.svg
+
+collections:
+  - name: projects
+    label: Projects
+    description: All projects shown on the portfolio.
+    files:
+      - name: all-projects
+        label: All Projects
+        file: public/data/projects.json
+        format: json
+        fields:
+          - name: projects
+            label: Projects
+            label_singular: Project
+            widget: list
+            summary: '{{fields.title}} · {{fields.year}}'
+            fields:
+              - { name: id, label: ID, widget: number, value_type: int, hint: 'Unique number. Use next available (e.g. 12).' }
+              - { name: title, label: Title, widget: string }
+              - { name: description, label: Short description, widget: text, hint: 'One sentence, shown on cards.' }
+              - { name: longDescription, label: Long description, widget: text, hint: 'Full paragraph on the project detail page.' }
+              - name: features
+                label: Features
+                widget: list
+                required: false
+                field: { name: feature, label: Feature, widget: string }
+              - { name: image, label: Hero image, widget: image, hint: 'Recommended ~1200x675 (16:9). Stored in public/img/projects.' }
+              - name: screenshots
+                label: Screenshots (gallery)
+                widget: list
+                required: false
+                field: { name: shot, label: Screenshot, widget: image }
+              - { name: link, label: Live link, widget: string, required: false, default: '' }
+              - { name: github, label: GitHub link, widget: string, required: false, default: '' }
+              - name: techStack
+                label: Tech stack
+                widget: list
+                field: { name: tech, label: Tech, widget: string }
+              - { name: year, label: Year, widget: number, value_type: int }
+              - name: status
+                label: Status
+                widget: select
+                options: [Live, Private, Archived, Open Source]
+              - { name: role, label: Role, widget: string }
+              - { name: type, label: Type, widget: string }
+              - { name: duration, label: Duration, widget: string }
+              - { name: team, label: Team, widget: string }

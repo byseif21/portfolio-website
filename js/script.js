@@ -97,6 +97,7 @@ function assetUrl(path) {
   const cardImagesPromise = Promise.all([
     fetch('/data/projects.json')
       .then((r) => r.json())
+      .then((d) => (Array.isArray(d) ? d : d?.projects || []))
       .catch(() => []),
     fetch('/data/certificates.json')
       .then((r) => r.json())
@@ -153,7 +154,8 @@ function initializePage() {
     fetchJSONData('/data/techStack.json'),
   ])
     .then((data) => {
-      projects = (data[0] || []).slice().sort((a, b) => (b.id ?? 0) - (a.id ?? 0));
+      const projectsRaw = Array.isArray(data[0]) ? data[0] : data[0]?.projects || [];
+      projects = projectsRaw.slice();
       window._allProjects = projects;
       certificates = (data[1] || []).slice().sort((a, b) => (b.id ?? 0) - (a.id ?? 0));
       techStack = data[2];
