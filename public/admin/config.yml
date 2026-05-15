@@ -28,22 +28,60 @@ collections:
             widget: list
             summary: '{{fields.title}} · {{fields.year}}'
             fields:
-              - { name: id, label: ID, widget: number, value_type: int, hint: 'Unique number. Use next available (e.g. 12).' }
+              - {
+                  name: id,
+                  label: ID,
+                  widget: number,
+                  value_type: int,
+                  hint: 'Unique number. Use next available (e.g. 12).',
+                }
               - { name: title, label: Title, widget: string }
-              - { name: description, label: Short description, widget: text, hint: 'One sentence, shown on cards.' }
-              - { name: longDescription, label: Long description, widget: text, hint: 'Full paragraph on the project detail page.' }
+              - {
+                  name: description,
+                  label: Short description,
+                  widget: text,
+                  hint: 'One sentence, shown on cards.',
+                }
+              - {
+                  name: longDescription,
+                  label: Long description,
+                  widget: text,
+                  hint: 'Full paragraph on the project detail page.',
+                }
               - name: features
                 label: Features
                 widget: list
                 required: false
                 field: { name: feature, label: Feature, widget: string }
-              - { name: image, label: Hero image, widget: image, media_folder: '/public/img/projects', public_folder: '/img/projects', hint: 'Recommended ~1200x675 (16:9).' }
-              - { name: video, label: Hover preview video, widget: file, required: false, media_folder: '/public/img/projects', public_folder: '/img/projects', hint: 'Optional. MP4 or WebM. Plays muted on card hover. Keep it short (5–10s) and small (<3MB).' }
+              - {
+                  name: image,
+                  label: Hero image,
+                  widget: image,
+                  media_folder: '/public/img/projects',
+                  public_folder: '/img/projects',
+                  hint: 'Recommended ~1200x675 (16:9).',
+                }
+              - {
+                  name: video,
+                  label: Hover preview video,
+                  widget: file,
+                  required: false,
+                  media_folder: '/public/img/projects',
+                  public_folder: '/img/projects',
+                  hint: 'Optional. MP4 or WebM. Plays muted on card hover. Keep it short (5–10s) and small (<3MB).',
+                }
               - name: screenshots
                 label: Screenshots (gallery)
                 widget: list
                 required: false
-                field: { name: shot, label: Screenshot, widget: image, media_folder: '/public/img/projects', public_folder: '/img/projects' }
+                field:
+                  {
+                    name: shot,
+                    label: Screenshot,
+                    widget: image,
+                    media_folder: '/public/img/projects',
+                    public_folder: '/img/projects',
+                  }
               - { name: link, label: Live link, widget: string, required: false, default: '' }
               - { name: github, label: GitHub link, widget: string, required: false, default: '' }
               - name: techStack
@@ -78,8 +116,20 @@ collections:
               - { name: id, label: ID, widget: number, value_type: int }
               - { name: title, label: Title, widget: string }
               - { name: description, label: Description, widget: text }
-              - { name: image, label: Image, widget: image, media_folder: '/public/img/certificates', public_folder: '/img/certificates' }
-              - { name: link, label: Verification link, widget: string, required: false, default: '' }
+              - {
+                  name: image,
+                  label: Image,
+                  widget: image,
+                  media_folder: '/public/img/certificates',
+                  public_folder: '/img/certificates',
+                }
+              - {
+                  name: link,
+                  label: Verification link,
+                  widget: string,
+                  required: false,
+                  default: '',
+                }
 
   - name: techStack
     label: Tech Stack
@@ -97,4 +147,11 @@ collections:
             summary: '{{fields.name}}'
             fields:
               - { name: name, label: Name, widget: string }
-              - { name: icon, label: Icon (SVG), widget: file, media_folder: '/public/img/TechStack', public_folder: '/img/TechStack', hint: 'SVG recommended.' }
+              - {
+                  name: icon,
+                  label: Icon (SVG),
+                  widget: file,
+                  media_folder: '/public/img/TechStack',
+                  public_folder: '/img/TechStack',
+                  hint: 'SVG recommended.',
+                }
