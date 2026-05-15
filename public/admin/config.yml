@@ -1,6 +1,12 @@
 backend:
   name: git-gateway
   branch: main
+  commit_messages:
+    create: 'chore: add {{collection}} entry'
+    update: 'chore: update {{collection}}'
+    delete: 'chore: remove {{collection}} entry'
+    uploadMedia: 'chore: upload {{path}}'
+    deleteMedia: 'chore: delete {{path}}'
 
 local_backend: true
 
