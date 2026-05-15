@@ -25,6 +25,10 @@ dist/
 # OS files
 .DS_Store
 Thumbs.db
+desktop.ini
 
 # Vercel
 .vercel/
+
+# Claude Code local settings
+.claude/

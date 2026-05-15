@@ -101,9 +101,11 @@ function assetUrl(path) {
       .catch(() => []),
     fetch('/data/certificates.json')
       .then((r) => r.json())
+      .then((d) => (Array.isArray(d) ? d : d?.items || []))
       .catch(() => []),
     fetch('/data/techStack.json')
       .then((r) => r.json())
+      .then((d) => (Array.isArray(d) ? d : d?.items || []))
       .catch(() => []),
   ]).then(([projects, certs, tech]) => {
     const urls = [
@@ -157,8 +159,10 @@ function initializePage() {
       const projectsRaw = Array.isArray(data[0]) ? data[0] : data[0]?.projects || [];
       projects = projectsRaw.slice();
       window._allProjects = projects;
-      certificates = (data[1] || []).slice().sort((a, b) => (b.id ?? 0) - (a.id ?? 0));
-      techStack = data[2];
+      const certsRaw = Array.isArray(data[1]) ? data[1] : data[1]?.items || [];
+      certificates = certsRaw.slice().sort((a, b) => (b.id ?? 0) - (a.id ?? 0));
+      const techRaw = Array.isArray(data[2]) ? data[2] : data[2]?.items || [];
+      techStack = techRaw;
 
       localStorage.setItem('projects', JSON.stringify(projects));
       localStorage.setItem('certificates', JSON.stringify(certificates));
@@ -322,9 +326,16 @@ function renderProjects(projectsToRender, limit) {
     .map((project) => {
       const hasLink =
         project.link && project.link !== '#' && !project.link.startsWith('javascript:');
+      const hasVideo = !!project.video;
+      const videoEl = hasVideo
+        ? `<video class="card-video" src="${assetUrl(project.video)}" muted loop playsinline preload="metadata"></video>`
+        : '';
       return `
         <div class="project-card" data-project-id="${project.id}">
-          <img src="${assetUrl(project.image)}" alt="${project.title}" />
+          <div class="card-media">
+            <img src="${assetUrl(project.image)}" alt="${project.title}" />
+            ${videoEl}
+          </div>
           <h3>${project.title}</h3>
           <p>${project.description}</p>
           <div class="card-footer">
@@ -334,6 +345,21 @@ function renderProjects(projectsToRender, limit) {
         </div>`;
     })
     .join('');
+
+  const HOVER_PLAYBACK_RATE = 3.5;
+  projectsGrid.querySelectorAll('.project-card .card-video').forEach((video) => {
+    const card = video.closest('.project-card');
+    card.addEventListener('mouseenter', () => {
+      video.classList.add('playing');
+      video.playbackRate = HOVER_PLAYBACK_RATE;
+      video.play().catch(() => {});
+    });
+    card.addEventListener('mouseleave', () => {
+      video.classList.remove('playing');
+      video.pause();
+      video.currentTime = 0;
+    });
+  });
 }
 
 function renderCertificates(certificatesToRender) {

@@ -14,6 +14,7 @@
         "Designed to reduce medication errors in clinical settings"
       ],
       "image": "img/projects/MedLens.png",
+      "video": "img/projects/MedLens.mp4",
       "screenshots": [],
       "link": "https://medlens.live",
       "github": "",
@@ -183,6 +184,7 @@
         "Distributed as both a browser game and an Electron desktop application"
       ],
       "image": "img/projects/onTarget.png",
+      "video": "img/projects/onTarget.mp4",
       "screenshots": [],
       "link": "https://byseif21.github.io/FPS-medical-game/",
       "github": "https://github.com/byseif21/FPS-medical-game",

@@ -2,8 +2,10 @@ backend:
   name: git-gateway
   branch: main
 
-media_folder: public/img/projects
-public_folder: /img/projects
+local_backend: true
+
+media_folder: public/img
+public_folder: /img
 
 publish_mode: simple
 site_url: https://seifsoliman.netlify.app
@@ -35,12 +37,13 @@ collections:
                 widget: list
                 required: false
                 field: { name: feature, label: Feature, widget: string }
-              - { name: image, label: Hero image, widget: image, hint: 'Recommended ~1200x675 (16:9). Stored in public/img/projects.' }
+              - { name: image, label: Hero image, widget: image, media_folder: '/public/img/projects', public_folder: '/img/projects', hint: 'Recommended ~1200x675 (16:9).' }
+              - { name: video, label: Hover preview video, widget: file, required: false, media_folder: '/public/img/projects', public_folder: '/img/projects', hint: 'Optional. MP4 or WebM. Plays muted on card hover. Keep it short (5–10s) and small (<3MB).' }
               - name: screenshots
                 label: Screenshots (gallery)
                 widget: list
                 required: false
-                field: { name: shot, label: Screenshot, widget: image }
+                field: { name: shot, label: Screenshot, widget: image, media_folder: '/public/img/projects', public_folder: '/img/projects' }
               - { name: link, label: Live link, widget: string, required: false, default: '' }
               - { name: github, label: GitHub link, widget: string, required: false, default: '' }
               - name: techStack
@@ -56,3 +59,42 @@ collections:
               - { name: type, label: Type, widget: string }
               - { name: duration, label: Duration, widget: string }
               - { name: team, label: Team, widget: string }
+
+  - name: certificates
+    label: Certificates
+    description: All certificates shown on the portfolio.
+    files:
+      - name: all-certificates
+        label: All Certificates
+        file: public/data/certificates.json
+        format: json
+        fields:
+          - name: items
+            label: Certificates
+            label_singular: Certificate
+            widget: list
+            summary: '{{fields.title}}'
+            fields:
+              - { name: id, label: ID, widget: number, value_type: int }
+              - { name: title, label: Title, widget: string }
+              - { name: description, label: Description, widget: text }
+              - { name: image, label: Image, widget: image, media_folder: '/public/img/certificates', public_folder: '/img/certificates' }
+              - { name: link, label: Verification link, widget: string, required: false, default: '' }
+
+  - name: techStack
+    label: Tech Stack
+    description: Tools and technologies shown in the Tech Stack section.
+    files:
+      - name: all-tech
+        label: All Tech
+        file: public/data/techStack.json
+        format: json
+        fields:
+          - name: items
+            label: Tech
+            label_singular: Tech entry
+            widget: list
+            summary: '{{fields.name}}'
+            fields:
+              - { name: name, label: Name, widget: string }
+              - { name: icon, label: Icon (SVG), widget: file, media_folder: '/public/img/TechStack', public_folder: '/img/TechStack', hint: 'SVG recommended.' }

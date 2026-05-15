@@ -11,6 +11,13 @@ const rootRewritePlugin = {
         req.url = '/html/cv.html';
       } else if (req.url.startsWith('/project')) {
         req.url = '/html/project.html' + req.url.slice('/project'.length);
+      } else if (req.url === '/admin') {
+        // Redirect to the trailing-slash form so relative paths (config.yml, etc.) resolve correctly.
+        res.writeHead(301, { Location: '/admin/' });
+        res.end();
+        return;
+      } else if (req.url === '/admin/') {
+        req.url = '/admin/index.html';
       }
       next();
     });
